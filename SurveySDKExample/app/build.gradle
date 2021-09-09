@@ -82,44 +82,45 @@ android {
 
 dependencies {
     implementation(
-        project(':data'),
-        project(':domain'),
+            project(':data'),
+            project(':domain'),
+            project(':AndroidSurveySDK'),
+            fileTree(dir: 'libs', include: ['*.jar']),
 
-        fileTree(dir: 'libs', include: ['*.jar']),
+            "androidx.activity:activity-ktx:$androidx_activity_ktx_version",
+            "androidx.appcompat:appcompat:$androidx_support_version",
+            "androidx.constraintlayout:constraintlayout:$constraint_layout_version",
+            "androidx.core:core-ktx:$androidx_core_ktx_version",
+            "androidx.lifecycle:lifecycle-runtime-ktx:$androidx_lifecycle_version",
 
-        "androidx.activity:activity-ktx:$androidx_activity_ktx_version",
-        "androidx.appcompat:appcompat:$androidx_support_version",
-        "androidx.constraintlayout:constraintlayout:$constraint_layout_version",
-        "androidx.core:core-ktx:$androidx_core_ktx_version",
-        "androidx.lifecycle:lifecycle-runtime-ktx:$androidx_lifecycle_version",
+            "androidx.compose.ui:ui:$compose_version",
+            "androidx.compose.ui:ui-tooling:$compose_version",
+            "androidx.compose.foundation:foundation:$compose_version",
+            "androidx.compose.material:material:$compose_version",
 
-        "androidx.compose.ui:ui:$compose_version",
-        "androidx.compose.ui:ui-tooling:$compose_version",
-        "androidx.compose.foundation:foundation:$compose_version",
-        "androidx.compose.material:material:$compose_version",
+            "androidx.navigation:navigation-fragment-ktx:$androidx_navigation_version",
+            "androidx.navigation:navigation-runtime-ktx:$androidx_navigation_version",
+            "androidx.navigation:navigation-ui-ktx:$androidx_navigation_version",
 
-        "androidx.navigation:navigation-fragment-ktx:$androidx_navigation_version",
-        "androidx.navigation:navigation-runtime-ktx:$androidx_navigation_version",
-        "androidx.navigation:navigation-ui-ktx:$androidx_navigation_version",
+            "com.google.dagger:hilt-android:$hilt_version",
 
-        "com.google.dagger:hilt-android:$hilt_version",
+            "com.jakewharton.timber:timber:$timber_log_version",
 
-        "com.jakewharton.timber:timber:$timber_log_version",
-
-        "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
-        "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
+            "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
+            "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
     )
+    implementation project(path: ':AndroidSurveySDK')
 
     kapt(
-        "com.google.dagger:hilt-compiler:$hilt_version"
+            "com.google.dagger:hilt-compiler:$hilt_version"
     )
 
     testImplementation(
-        "junit:junit:$test_junit_version"
+            "junit:junit:$test_junit_version"
     )
 
     androidTestImplementation(
-        "androidx.test.ext:junit:$test_android_junit_version",
-        "androidx.test.espresso:espresso-core:$test_espresso_version"
+            "androidx.test.ext:junit:$test_android_junit_version",
+            "androidx.test.espresso:espresso-core:$test_espresso_version"
     )
 }
