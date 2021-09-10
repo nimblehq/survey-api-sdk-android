@@ -1,3 +1,0 @@
-include ':app', ':data', ':domain'
-include ':AndroidSurveySDK'
-project(':AndroidSurveySDK').projectDir = new File(settingsDir, '../AndroidSurveySDK')
