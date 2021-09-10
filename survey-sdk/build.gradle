@@ -31,7 +31,10 @@ android {
 }
 
 dependencies {
-
+    api(
+        "com.squareup.moshi:moshi-adapters:$moshi_version",
+        "com.squareup.moshi:moshi-kotlin:$moshi_version",
+    )
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
 }
