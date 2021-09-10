@@ -1,13 +1,12 @@
 package co.nimblehq.sample.ui.login
 
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.util.Patterns
+import co.nimblehq.sample.R
 import co.nimblehq.sample.data.LoginRepository
 import co.nimblehq.sample.data.Result
-
-import co.nimblehq.sample.R
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
