@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 rootProject.name = "SurveySdk"
 include ':survey-sdk'
 include ':sample'
+
