@@ -34,6 +34,10 @@ dependencies {
     api(
         "com.squareup.moshi:moshi-adapters:$moshi_version",
         "com.squareup.moshi:moshi-kotlin:$moshi_version",
+        "com.squareup.retrofit2:converter-moshi:$retrofit_version",
+        "com.squareup.retrofit2:retrofit:$retrofit_version",
+        "com.squareup.okhttp3:okhttp:$okhttp_version",
+        "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
     )
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
