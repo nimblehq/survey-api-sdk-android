@@ -13,7 +13,6 @@ open class NetworkBuilder {
     private var baseUrl = ""
     private var connectionTimeoutInSecond = 30L
     private var readTimeoutInSecond = 30L
-    private var version = "v1"
 
     fun setDebugMode(debugMode: Boolean): NetworkBuilder {
         this.debugMode = debugMode
@@ -32,11 +31,6 @@ open class NetworkBuilder {
 
     fun setReadTimeoutInSecond(timeout: Long): NetworkBuilder {
         this.readTimeoutInSecond = timeout
-        return this
-    }
-
-    fun setVersion(version: String): NetworkBuilder {
-        this.version = version
         return this
     }
 
