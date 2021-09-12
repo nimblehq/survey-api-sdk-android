@@ -7,24 +7,37 @@ import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import moe.banana.jsonapi2.JsonApiConverterFactory
+import moe.banana.jsonapi2.Resource
 import moe.banana.jsonapi2.ResourceAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 object MoshiBuilderProvider {
+    private val listJsonApiClass = mutableListOf<Class<out Resource>>(
+        SurveyEntity::class.java,
+        QuestionEntity::class.java,
+        AnswerEntity::class.java
+    )
 
-    fun provideJsonApiFactory(): JsonAdapter.Factory = ResourceAdapterFactory.builder()
-        .add(SurveyEntity::class.java)
-        .add(QuestionEntity::class.java)
-        .add(AnswerEntity::class.java)
+    private val moshiBuilder: Moshi.Builder
+        get() = Moshi.Builder()
+
+    private fun provideJsonApiFactory(): JsonAdapter.Factory = ResourceAdapterFactory.builder()
+        .add(*listJsonApiClass.toTypedArray())
         .build()
 
-    fun provideJsonApiMoshi(moshiBuilder: Moshi.Builder, factory: JsonAdapter.Factory): Moshi =
-        moshiBuilder.add((factory)).build()
+    private fun provideMoshi(): Moshi = moshiBuilder
+        .add((provideJsonApiFactory())).build()
 
-    fun getJsonApiConverterFactory(moshi: Moshi): JsonApiConverterFactory =
-        JsonApiConverterFactory.create(moshi)
+    fun getJsonApiConverterFactory(): JsonApiConverterFactory =
+        JsonApiConverterFactory.create(provideMoshi())
 
-    fun getConverterFactory(moshiBuilder: Moshi.Builder): MoshiConverterFactory =
-        MoshiConverterFactory.create(moshiBuilder.add(KotlinJsonAdapterFactory()).build())
+    fun addJsonApiClasses(vararg classes: Class<out Resource>) {
+        listJsonApiClass.addAll(classes)
+    }
 
+    fun getConverterFactory(): MoshiConverterFactory = MoshiConverterFactory.create(
+        moshiBuilder.add(
+            KotlinJsonAdapterFactory()
+        ).build()
+    )
 }
