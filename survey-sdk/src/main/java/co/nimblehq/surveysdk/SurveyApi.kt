@@ -4,11 +4,14 @@ import co.nimblehq.surveysdk.api.AppService
 import co.nimblehq.surveysdk.entity.SurveyDetailEntity
 import co.nimblehq.surveysdk.entity.SurveyListEntity
 import co.nimblehq.surveysdk.network.NetworkBuilder
+import co.nimblehq.surveysdk.request.BaseRequest
 
 
 class SurveyApi : NetworkBuilder() {
     private lateinit var service: AppService
     private var version = "v1"
+    private var clientId = ""
+    private var clientSecret = ""
 
     companion object {
         private lateinit var instancce: SurveyApi
@@ -30,6 +33,21 @@ class SurveyApi : NetworkBuilder() {
         return this
     }
 
+    fun withClientId(clientId: String): SurveyApi {
+        this.clientId = clientId
+        return this
+    }
+
+    fun withClientSecret(clientSecret: String): SurveyApi {
+        this.clientSecret = clientSecret
+        return this
+    }
+
+    fun setTokenApi(token: String): SurveyApi {
+        super.setToken(token)
+        return this
+    }
+
     fun withConnectionTimeout(timeout: Long): SurveyApi {
         setConnectionTimeoutInSecond(timeout)
         return this
@@ -47,7 +65,8 @@ class SurveyApi : NetworkBuilder() {
 
     //IMPORTANT : need to be called after the configuration
     fun build() {
-        service = buildService()
+        service = buildAppService()
+        BaseRequest.updateKey(clientId, clientSecret)
     }
 
     //public api

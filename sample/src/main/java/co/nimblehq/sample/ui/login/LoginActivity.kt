@@ -1,6 +1,7 @@
 package co.nimblehq.sample.ui.login
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -17,20 +18,22 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val login = binding.login
-
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
-        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
-            val loginState = it ?: return@Observer
-
-        })
 
         loginViewModel.loginResult.observe(this@LoginActivity, Observer {
+            if (it.success != null) {
+                Toast.makeText(this, "Login successful!", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Login FAIL!", Toast.LENGTH_LONG).show()
+            }
 
         })
 
+        binding.login.setOnClickListener {
+            loginViewModel.login()
+        }
 
     }
 

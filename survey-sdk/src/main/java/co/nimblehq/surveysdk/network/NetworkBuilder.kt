@@ -13,6 +13,7 @@ open class NetworkBuilder {
     private var baseUrl = ""
     private var connectionTimeoutInSecond = 30L
     private var readTimeoutInSecond = 30L
+    private var token = ""
 
     fun setDebugMode(debugMode: Boolean): NetworkBuilder {
         this.debugMode = debugMode
@@ -31,6 +32,12 @@ open class NetworkBuilder {
 
     fun setReadTimeoutInSecond(timeout: Long): NetworkBuilder {
         this.readTimeoutInSecond = timeout
+        return this
+    }
+
+
+    fun setToken(token: String): NetworkBuilder {
+        this.token = token
         return this
     }
 
