@@ -4,30 +4,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import co.nimblehq.sample.ui.SurveyUiModel
-import co.nimblehq.survey.sdk.entity.SurveyEntity
+import co.nimblehq.sample.ui.ModelResult
 import kotlinx.coroutines.launch
 
 class SurveyListViewModel : ViewModel() {
 
-    private val _surveyListResult = MutableLiveData<SurveyUiModel<SurveyListModel>>()
-    val surveyListSurveyUi: LiveData<SurveyUiModel<SurveyListModel>> = _surveyListResult
+    private val _surveyListResult = MutableLiveData<ModelResult<SurveyListViewModel>>()
+    val surveyListResult: LiveData<ModelResult<SurveyListViewModel>> = _surveyListResult
 
-    fun getSurveyList() {
+    fun login() {
         // can be launched in a separate asynchronous job
         viewModelScope.launch {
             try {
-                //TODO: hardcode for testing, need to be integrate with SDK later
-                _surveyListResult.value = SurveyUiModel(success = SurveyListModel(listSurvey = mutableListOf(
-                    SurveyEntity("Survey 1", "Description 1"), SurveyEntity("Survey 2", "Description 2")
-                )))
+                //TODO: for integration
             } catch (e: Exception) {
-                e.printStackTrace()
             }
-
         }
-
     }
-
 }
 

@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import co.nimblehq.sample.databinding.ActivityLoginBinding
 import co.nimblehq.sample.ui.surveylist.SurveyListActivity
@@ -25,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
 
 
         loginViewModel.loginResult.observe(this@LoginActivity, {
-            if (it.success != null) {
+            if (it.isSuccess) {
                 Toast.makeText(this, "Login successful!", Toast.LENGTH_LONG).show()
                 val intent = Intent(this@LoginActivity, SurveyListActivity::class.java)
                 startActivity(intent)
@@ -40,8 +39,5 @@ class LoginActivity : AppCompatActivity() {
         binding.login.setOnClickListener {
             loginViewModel.login()
         }
-
     }
-
 }
-
