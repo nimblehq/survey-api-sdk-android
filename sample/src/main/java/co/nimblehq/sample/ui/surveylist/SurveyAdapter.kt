@@ -16,6 +16,10 @@ class SurveyAdapter : RecyclerView.Adapter<SurveyAdapter.SurveyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SurveyViewHolder {
         val textView = TextView(parent.context)
+        textView.layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         textView.textSize = 24f
         return SurveyViewHolder(textView)
     }
