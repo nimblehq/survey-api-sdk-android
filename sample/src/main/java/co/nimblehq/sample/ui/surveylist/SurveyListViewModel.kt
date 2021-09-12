@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 class SurveyListViewModel : ViewModel() {
 
     private val _surveyListResult = MutableLiveData<SurveyUiModel<SurveyListModel>>()
-    val surveyListSurveyUi: LiveData<SurveyUiModel<SurveyListModel>> = _surveyListResult
+    val surveyListResult: LiveData<SurveyUiModel<SurveyListModel>> = _surveyListResult
 
     fun getSurveyList() {
         // can be launched in a separate asynchronous job
@@ -24,10 +24,7 @@ class SurveyListViewModel : ViewModel() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-
         }
-
     }
-
 }
 

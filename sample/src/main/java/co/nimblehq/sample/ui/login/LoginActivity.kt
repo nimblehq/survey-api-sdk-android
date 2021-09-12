@@ -22,7 +22,6 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
-
         loginViewModel.loginResult.observe(this@LoginActivity, {
             if (it.isSuccess) {
                 Toast.makeText(this, "Login successful!", Toast.LENGTH_LONG).show()
