@@ -22,6 +22,7 @@ class SurveyListViewModel : ViewModel() {
                     SurveyEntity("Survey 1", "Description 1"), SurveyEntity("Survey 2", "Description 2")
                 )))
             } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
