@@ -120,42 +120,6 @@ const val JSON_SURVEY_LIST_TEST = "{\n" +
     "              \"type\": \"question\"\n" +
     "            },\n" +
     "            {\n" +
-    "              \"id\": \"ea0555f328b3b0124127\",\n" +
-    "              \"type\": \"question\"\n" +
-    "            },\n" +
-    "            {\n" +
-    "              \"id\": \"16e68f5610ef0e0fa4db\",\n" +
-    "              \"type\": \"question\"\n" +
-    "            },\n" +
-    "            {\n" +
-    "              \"id\": \"bab38ad82eaf22afcdfe\",\n" +
-    "              \"type\": \"question\"\n" +
-    "            },\n" +
-    "            {\n" +
-    "              \"id\": \"85275a0bf28a6f3b1e63\",\n" +
-    "              \"type\": \"question\"\n" +
-    "            },\n" +
-    "            {\n" +
-    "              \"id\": \"642770376f7cd0c87d3c\",\n" +
-    "              \"type\": \"question\"\n" +
-    "            },\n" +
-    "            {\n" +
-    "              \"id\": \"b093a6ad9a6a466fa787\",\n" +
-    "              \"type\": \"question\"\n" +
-    "            },\n" +
-    "            {\n" +
-    "              \"id\": \"e593b2fa2f81891a2b1e\",\n" +
-    "              \"type\": \"question\"\n" +
-    "            },\n" +
-    "            {\n" +
-    "              \"id\": \"c3a9b8ce5c2356010703\",\n" +
-    "              \"type\": \"question\"\n" +
-    "            },\n" +
-    "            {\n" +
-    "              \"id\": \"fbf5d260de1ee6195473\",\n" +
-    "              \"type\": \"question\"\n" +
-    "            },\n" +
-    "            {\n" +
     "              \"id\": \"4372463ce56db58c0983\",\n" +
     "              \"type\": \"question\"\n" +
     "            }\n" +
@@ -183,46 +147,6 @@ const val JSON_SURVEY_LIST_TEST = "{\n" +
     "          \"data\": [\n" +
     "            {\n" +
     "              \"id\": \"fa385b75617d98e069a3\",\n" +
-    "              \"type\": \"question\"\n" +
-    "            },\n" +
-    "            {\n" +
-    "              \"id\": \"1b03688d4af8a5c6b1e0\",\n" +
-    "              \"type\": \"question\"\n" +
-    "            },\n" +
-    "            {\n" +
-    "              \"id\": \"6e2b6ee71d3011cc0ac1\",\n" +
-    "              \"type\": \"question\"\n" +
-    "            },\n" +
-    "            {\n" +
-    "              \"id\": \"29272d3bac5725b4c2cf\",\n" +
-    "              \"type\": \"question\"\n" +
-    "            },\n" +
-    "            {\n" +
-    "              \"id\": \"7f164dd6150e6113f8ad\",\n" +
-    "              \"type\": \"question\"\n" +
-    "            },\n" +
-    "            {\n" +
-    "              \"id\": \"1d13ef20807de4f752c7\",\n" +
-    "              \"type\": \"question\"\n" +
-    "            },\n" +
-    "            {\n" +
-    "              \"id\": \"d06378d7ab2925282ecd\",\n" +
-    "              \"type\": \"question\"\n" +
-    "            },\n" +
-    "            {\n" +
-    "              \"id\": \"4c1e9486cf95ba54dac8\",\n" +
-    "              \"type\": \"question\"\n" +
-    "            },\n" +
-    "            {\n" +
-    "              \"id\": \"b8f06895134eb1da2d13\",\n" +
-    "              \"type\": \"question\"\n" +
-    "            },\n" +
-    "            {\n" +
-    "              \"id\": \"e9e2518333211ee2e5c8\",\n" +
-    "              \"type\": \"question\"\n" +
-    "            },\n" +
-    "            {\n" +
-    "              \"id\": \"81c9ae82f32f93c2967d\",\n" +
     "              \"type\": \"question\"\n" +
     "            },\n" +
     "            {\n" +
