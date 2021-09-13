@@ -3,12 +3,8 @@ package co.nimblehq.surveysdk.serializer
 
 import co.nimblehq.surveysdk.entity.SurveyDetailEntity
 import co.nimblehq.surveysdk.entity.SurveyListEntity
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
@@ -16,21 +12,9 @@ import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
 class SerializerTest {
-
-    lateinit var moshi: Moshi
-
-    @Before
-    fun setUp() {
-        moshi = Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
-    }
-
-
     @Test
     fun testSerializeSurveyListEntityHappyCase() {
-        val jsonAdapter: JsonAdapter<SurveyListEntity> = moshi.adapter(SurveyListEntity::class.java)
-        val rs = jsonAdapter.fromJson(JSON_SURVEY_LIST_TEST)
+        val rs = TestUtil.getDataFromJson<SurveyListEntity>(JSON_SURVEY_LIST_TEST)
         assertNotNull(rs)
         val resultEntity = rs!!
         assertNotNull(resultEntity.data)
@@ -69,9 +53,7 @@ class SerializerTest {
 
     @Test
     fun testSerializeSurveyDetailHappyCase() {
-        val jsAdapter: JsonAdapter<SurveyDetailEntity> =
-            moshi.adapter(SurveyDetailEntity::class.java)
-        val rs = jsAdapter.fromJson(JSON_SURVEY_DETAIL_TEST)
+        val rs = TestUtil.getDataFromJson<SurveyDetailEntity>(JSON_SURVEY_DETAIL_TEST)
         assertNotNull(rs)
         val detailEntity = rs!!
         //data test
