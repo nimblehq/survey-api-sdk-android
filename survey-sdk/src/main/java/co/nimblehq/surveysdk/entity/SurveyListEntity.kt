@@ -8,7 +8,6 @@ data class SurveyListEntity(
 ) {
 
     data class SurveyListItem(
-        var sortKey: Int,
         var id: String,
         var type: String?,
         var attributes: Attributes?,

@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 
 data class SurveyDetailEntity(
     val data: SurveyItem,
-    val included : List<SurveyItem>
+    val included: List<SurveyItem>?
 ) {
 
     data class SurveyItem(
@@ -41,10 +41,10 @@ data class SurveyDetailEntity(
         )
 
         data class Relationships(
-            val questions: Questions
+            val questions: Questions?
         ) {
             data class Questions(
-                val data: List<QuestionsDatum>
+                val data: List<QuestionsDatum>?
             ) {
                 data class QuestionsDatum(
                     val id: String,
