@@ -1,6 +1,5 @@
 package co.nimblehq.survey.serializer
 
-
 import co.nimblehq.survey.sdk.entity.SurveyDetailEntity
 import co.nimblehq.survey.sdk.entity.SurveyListEntity
 import org.junit.Assert.assertNotNull
@@ -9,11 +8,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
 
-
 @RunWith(MockitoJUnitRunner::class)
 class SerializerTest {
     @Test
-    fun testSerializeSurveyListEntityHappyCase() {
+    fun `when parsing the right json string as list survey, it should return the SurveyListEntity`() {
         val rs = TestUtil.getDataFromJson<SurveyListEntity>(JSON_SURVEY_LIST_TEST)
         assertNotNull(rs)
         val resultEntity = rs!!
@@ -52,7 +50,7 @@ class SerializerTest {
     }
 
     @Test
-    fun testSerializeSurveyDetailHappyCase() {
+    fun `when parsing the right json string as survey detail, it should return the SurveyDetailEntity`() {
         val rs = TestUtil.getDataFromJson<SurveyDetailEntity>(JSON_SURVEY_DETAIL_TEST)
         assertNotNull(rs)
         val detailEntity = rs!!
