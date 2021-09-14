@@ -64,5 +64,3 @@ data class SurveyListEntity(
         val records: Int
     )
 }
-
-

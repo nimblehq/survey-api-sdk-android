@@ -55,5 +55,3 @@ data class SurveyDetailEntity(
     }
 
 }
-
-
