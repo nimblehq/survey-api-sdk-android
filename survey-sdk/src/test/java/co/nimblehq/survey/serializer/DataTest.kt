@@ -1,4 +1,4 @@
-package co.nimblehq.surveysdk.serializer
+package co.nimblehq.survey.serializer
 
 const val JSON_SURVEY_DETAIL_TEST: String = "{\n" +
     "  \"data\": {\n" +

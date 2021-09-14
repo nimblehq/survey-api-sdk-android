@@ -1,4 +1,4 @@
-package co.nimblehq.surveysdk.entity
+package co.nimblehq.survey.sdk.entity
 
 import com.squareup.moshi.Json
 

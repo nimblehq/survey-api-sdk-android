@@ -1,4 +1,4 @@
-package co.nimblehq.surveysdk.serializer
+package co.nimblehq.survey.serializer
 
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi

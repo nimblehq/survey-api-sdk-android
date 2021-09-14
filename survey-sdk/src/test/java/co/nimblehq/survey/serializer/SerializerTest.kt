@@ -1,8 +1,8 @@
-package co.nimblehq.surveysdk.serializer
+package co.nimblehq.survey.serializer
 
 
-import co.nimblehq.surveysdk.entity.SurveyDetailEntity
-import co.nimblehq.surveysdk.entity.SurveyListEntity
+import co.nimblehq.survey.sdk.entity.SurveyDetailEntity
+import co.nimblehq.survey.sdk.entity.SurveyListEntity
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
