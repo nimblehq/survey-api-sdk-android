@@ -12,7 +12,7 @@ import org.mockito.junit.MockitoJUnitRunner
 class SerializerTest {
     @Test
     fun `when parsing the right json string as list survey, it should return the SurveyListEntity`() {
-        val rs = TestUtil.getDataFromJson<SurveyListEntity>(JSON_SURVEY_LIST_TEST)
+        val rs = JSON_SURVEY_LIST_TEST.toJsonObject<SurveyListEntity>()
         assertNotNull(rs)
         val resultEntity = rs!!
         assertNotNull(resultEntity.data)
@@ -51,7 +51,7 @@ class SerializerTest {
 
     @Test
     fun `when parsing the right json string as survey detail, it should return the SurveyDetailEntity`() {
-        val rs = TestUtil.getDataFromJson<SurveyDetailEntity>(JSON_SURVEY_DETAIL_TEST)
+        val rs = JSON_SURVEY_DETAIL_TEST.toJsonObject<SurveyDetailEntity>()
         assertNotNull(rs)
         val detailEntity = rs!!
         //data test

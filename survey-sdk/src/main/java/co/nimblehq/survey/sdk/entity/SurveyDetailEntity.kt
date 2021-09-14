@@ -35,7 +35,6 @@ data class SurveyDetailEntity(
             @Json(name = "active_at")
             var activeAt: String?,
 
-
             @Json(name = "survey_type")
             var surveyType: String?
         )
