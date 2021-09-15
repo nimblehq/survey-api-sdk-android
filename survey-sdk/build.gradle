@@ -42,7 +42,6 @@ dependencies {
         "junit:junit:$junit_version",
         "org.mockito:mockito-core:$mockito_version",
         "org.mockito:mockito-inline:$mockito_version"
-
     )
 
     androidTestImplementation(
