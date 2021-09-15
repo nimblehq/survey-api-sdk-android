@@ -7,52 +7,48 @@ import moe.banana.jsonapi2.Resource
 
 @JsonApi(type = "question")
 open class QuestionEntity : Resource() {
-    var text: String? = ""
+    @field:Json(name = "text")
+    var text: String? = null
 
     @field:Json(name = "help_text")
-    var helpText: String? = ""
+    var helpText: String? = null
 
     @field:Json(name = "display_order")
     var displayOrder = 0
 
     @field:Json(name = "short_text")
-    var shortText: String? = ""
+    var shortText: String? = null
 
-    var pick: String? = ""
+    @field:Json(name = "pick")
+    var pick: String? = null
 
     @field:Json(name = "display_type")
-    var displayType: String? = ""
+    var displayType: String? = null
 
     @field:Json(name = "is_mandatory")
-    var isMandatory: Boolean? = false
+    var isMandatory: Boolean? = null
 
     @field:Json(name = "image_url")
-    var imageUrl: String? = ""
+    var imageUrl: String? = null
 
     @field:Json(name = "cover_image_url")
-    var coverImageUrl: String? = ""
+    var coverImageUrl: String? = null
 
     @field:Json(name = "cover_image_opacity")
-    var coverImageOpacity: Double? = 0.0
+    var coverImageOpacity: Double? = null
 
     @field:Json(name = "is_shareable_on_facebook")
-    var isShareableOnFacebook: Boolean? = false
+    var isShareableOnFacebook: Boolean? = null
 
     @field:Json(name = "is_shareable_on_twitter")
-    var isShareableOnTwitter: Boolean? = false
+    var isShareableOnTwitter: Boolean? = null
 
     @field:Json(name = "tag_list")
-    var tagList: String? = ""
+    var tagList: String? = null
 
     var answers: HasMany<AnswerEntity>? = null
 
     fun getAnswerList(): List<AnswerEntity>? {
-        val resources = answers?.get()
-        return resources?.map { resource ->
-            AnswerEntity().apply {
-                id = resource.id
-                type = resource.type
-            }
-        }
+        return answers?.get(document)
     }
 }

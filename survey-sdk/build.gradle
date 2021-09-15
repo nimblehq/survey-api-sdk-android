@@ -35,7 +35,7 @@ dependencies {
         "com.squareup.moshi:moshi-adapters:$moshi_version",
         "com.squareup.moshi:moshi-kotlin:$moshi_version",
         "com.squareup.moshi:moshi:$moshi_version",
-        "moe.banana:moshi-jsonapi:$moshi_json_api"
+        "moe.banana:moshi-jsonapi:$moshi_json_api_version"
     )
 
     testImplementation(
@@ -44,6 +44,7 @@ dependencies {
         "org.mockito:mockito-inline:$mockito_version"
 
     )
+
     androidTestImplementation(
         "androidx.test.ext:junit:$junit_androidx_version"
     )

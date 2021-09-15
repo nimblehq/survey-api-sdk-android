@@ -20,7 +20,7 @@ import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
 class SerializerTest {
-    lateinit var moshi: Moshi
+    private lateinit var moshi: Moshi
 
     @Before
     fun setup() {
@@ -41,40 +41,50 @@ class SerializerTest {
         val surveyList: ArrayDocument<SurveyEntity> =
             moshi.adapter(Document::class.java)
                 .fromJson(JSON_SURVEY_LIST_TEST) as ArrayDocument<SurveyEntity>
+
         assertTrue(surveyList.isNotEmpty())
-        //item test
+        //Item test
 
         val firstItem = surveyList.first()
-        //attributes test
-        assertTrue(firstItem.title == "Scarlett Bangkok")
-        assertTrue(firstItem.description == "We'd love ot hear from you!")
-        assertTrue(firstItem.thankEmailAboveThreshold == "Test1")
-        assertTrue(firstItem.thankEmailBelowThreshold == "Test2")
-        assertTrue(firstItem.isActive == true)
-        assertTrue(firstItem.coverImageURL == "https://dhdbhh0jsld0o.cloudfront.net/m/1ea51560991bcb7d00d0_")
-        assertTrue(firstItem.createdAt == "2017-01-23T07:48:12.991Z")
-        assertTrue(firstItem.activeAt == "2015-10-08T07:04:00.000Z")
-        assertTrue(firstItem.surveyType == "Restaurant")
+        // Attributes test
+        with(firstItem) {
+            assertTrue(title == "Scarlett Bangkok")
+            assertTrue(description == "We'd love ot hear from you!")
+            assertTrue(thankEmailAboveThreshold == "Test1")
+            assertTrue(thankEmailBelowThreshold == "Test2")
+            assertTrue(isActive == true)
+            assertTrue(coverImageURL == "https://dhdbhh0jsld0o.cloudfront.net/m/1ea51560991bcb7d00d0_")
+            assertTrue(createdAt == "2017-01-23T07:48:12.991Z")
+            assertTrue(activeAt == "2015-10-08T07:04:00.000Z")
+            assertTrue(surveyType == "Restaurant")
+        }
 
-        //relationship test
+        // Relationship test
         assertNotNull(firstItem.questions)
         val questionList = firstItem.getQuestionList()
         assertTrue(questionList?.isNotEmpty() == true)
-        //first data test
-        val firstData = questionList?.first()
-        assertTrue(firstData?.id == "d3afbcf2b1d60af845dc")
-        assertTrue(firstData?.type == "question")
 
+        // First data test
+        val firstData = questionList?.first()
+        assertNotNull(firstData)
+        firstData?.run {
+            assertTrue(id == "d3afbcf2b1d60af845dc")
+            assertTrue(type == "question")
+        }
+
+        // Meta test
         val metaJsonBuffer = surveyList.meta
-        //meta test
         assertNotNull(metaJsonBuffer)
         val meta =
             metaJsonBuffer.get<MetaEntity>(moshi.adapter(MetaEntity::class.java)) as? MetaEntity
         assertNotNull(meta)
-        assertTrue(meta?.page == 1)
-        assertTrue(meta?.pages == 10)
-        assertTrue(meta?.pageSize == 2)
-        assertTrue(meta?.records == 20)
+        meta?.run {
+            assertTrue(page == 1)
+            assertTrue(pages == 10)
+            assertTrue(pageSize == 2)
+            assertTrue(records == 20)
+        }
+
     }
 
     @Test
@@ -84,67 +94,84 @@ class SerializerTest {
                 .fromJson(JSON_SURVEY_DETAIL_TEST) as ObjectDocument<SurveyEntity>
 
         assertNotNull(surveyDocument)
-        //item test
-        val surveyDetail = surveyDocument.get()
-        //attributes test
-        assertTrue(surveyDetail.title == "Scarlett Bangkok")
-        assertTrue(surveyDetail.description == "We'd love ot hear from you!")
-        assertTrue(surveyDetail.thankEmailAboveThreshold == "Test1")
-        assertTrue(surveyDetail.thankEmailBelowThreshold == "Test2")
-        assertTrue(surveyDetail.isActive == true)
-        assertTrue(surveyDetail.coverImageURL == "https://dhdbhh0jsld0o.cloudfront.net/m/1ea51560991bcb7d00d0_")
-        assertTrue(surveyDetail.createdAt == "2017-01-23T07:48:12.991Z")
-        assertTrue(surveyDetail.activeAt == "2015-10-08T07:04:00.000Z")
-        assertTrue(surveyDetail.surveyType == "Restaurant")
 
-        //relationship test
+        // Item test
+        val surveyDetail = surveyDocument.get()
+
+        // Attributes test
+        with(surveyDetail) {
+            assertTrue(title == "Scarlett Bangkok")
+            assertTrue(description == "We'd love ot hear from you!")
+            assertTrue(thankEmailAboveThreshold == "Test1")
+            assertTrue(thankEmailBelowThreshold == "Test2")
+            assertTrue(isActive == true)
+            assertTrue(coverImageURL == "https://dhdbhh0jsld0o.cloudfront.net/m/1ea51560991bcb7d00d0_")
+            assertTrue(createdAt == "2017-01-23T07:48:12.991Z")
+            assertTrue(activeAt == "2015-10-08T07:04:00.000Z")
+            assertTrue(surveyType == "Restaurant")
+        }
+
+
+        // Relationship test
         assertNotNull(surveyDetail.questions)
         val questionList = surveyDetail.getQuestionList()
         assertTrue(questionList?.isNotEmpty() == true)
-        //first data test
+
+        // First data test
         val firstData = questionList?.first()
-        assertTrue(firstData?.id == "d3afbcf2b1d60af845dc")
-        assertTrue(firstData?.type == "question")
-        //included test
+        assertNotNull(firstData)
+        firstData?.run {
+            assertTrue(id == "d3afbcf2b1d60af845dc")
+            assertTrue(type == "question")
+        }
+
+
+        // Included test
         val included = surveyDocument.included
         assertNotNull(included)
         assertTrue(included.isNotEmpty())
-        //question type test
+
+        // Question type test
         val questionType = included.first() as QuestionEntity
-        assertTrue(questionType.id == "d3afbcf2b1d60af845dc")
-        assertTrue(questionType.type == "question")
-        assertTrue(questionType.text?.contains("Thank you for visiting Scarlett!") == true)
-        assertTrue(questionType.helpText == null)
-        assertTrue(questionType.displayOrder == 0)
-        assertTrue(questionType.shortText == "introduction")
-        assertTrue(questionType.pick == "none")
-        assertTrue(questionType.displayType == "intro")
-        assertTrue(questionType.isMandatory == false)
-        assertTrue(questionType.imageUrl == "https://dhdbhh0jsld0o.cloudfront.net/m/2001ebbfdcbf6c00c757_")
-        assertTrue(questionType.coverImageUrl == "https://dhdbhh0jsld0o.cloudfront.net/m/1ea51560991bcb7d00d0_")
-        assertTrue(questionType.coverImageOpacity == 0.6)
-        assertTrue(questionType.isShareableOnFacebook == false)
-        assertTrue(questionType.isShareableOnTwitter == false)
-        assertTrue(questionType.tagList?.isEmpty() == true)
-        assertTrue(questionType.answers != null)
-        //answer type test
+        with(questionType) {
+            assertTrue(id == "d3afbcf2b1d60af845dc")
+            assertTrue(type == "question")
+            assertTrue(text?.contains("Thank you for visiting Scarlett!") == true)
+            assertTrue(helpText == null)
+            assertTrue(displayOrder == 0)
+            assertTrue(shortText == "introduction")
+            assertTrue(pick == "none")
+            assertTrue(displayType == "intro")
+            assertTrue(isMandatory == false)
+            assertTrue(imageUrl == "https://dhdbhh0jsld0o.cloudfront.net/m/2001ebbfdcbf6c00c757_")
+            assertTrue(coverImageUrl == "https://dhdbhh0jsld0o.cloudfront.net/m/1ea51560991bcb7d00d0_")
+            assertTrue(coverImageOpacity == 0.6)
+            assertTrue(isShareableOnFacebook == false)
+            assertTrue(isShareableOnTwitter == false)
+            assertTrue(tagList?.isEmpty() == true)
+            assertTrue(answers != null)
+        }
+
+        // Answer type test
         val answerType = included.last() as AnswerEntity
-        assertTrue(answerType.id == "575db8c074601994bde3")
-        assertTrue(answerType.type == "answer")
-        assertTrue(answerType.text?.contains("Email") == true)
-        assertTrue(answerType.helpText == null)
-        assertTrue(answerType.inputMaskPlaceholder == "you@example.com")
-        assertTrue(answerType.shortText == "answer_6")
-        assertTrue(answerType.isMandatory == false)
-        assertTrue(answerType.isCustomerFirstName == false)
-        assertTrue(answerType.isCustomerLastName == false)
-        assertTrue(answerType.isCustomerTitle == false)
-        assertTrue(answerType.isCustomerEmail == true)
-        assertTrue(answerType.promptCustomAnswer == false)
-        assertTrue(answerType.displayOrder == 2)
-        assertTrue(answerType.displayType == "default")
-        assertTrue(answerType.inputMask == "[\\.\\-_\\+a-zA-Z0-9]+@[\\-\\a-zA-Z0-9]+(?:\\.[\\-a-zA-Z0-9]+)+")
-        assertTrue(answerType.responseClass == "string")
+        with(answerType) {
+            assertTrue(id == "575db8c074601994bde3")
+            assertTrue(type == "answer")
+            assertTrue(text?.contains("Email") == true)
+            assertTrue(helpText == null)
+            assertTrue(inputMaskPlaceholder == "you@example.com")
+            assertTrue(shortText == "answer_6")
+            assertTrue(isMandatory == false)
+            assertTrue(isCustomerFirstName == false)
+            assertTrue(isCustomerLastName == false)
+            assertTrue(isCustomerTitle == false)
+            assertTrue(isCustomerEmail == true)
+            assertTrue(promptCustomAnswer == false)
+            assertTrue(displayOrder == 2)
+            assertTrue(displayType == "default")
+            assertTrue(inputMask == "[\\.\\-_\\+a-zA-Z0-9]+@[\\-\\a-zA-Z0-9]+(?:\\.[\\-a-zA-Z0-9]+)+")
+            assertTrue(responseClass == "string")
+        }
     }
 
 }

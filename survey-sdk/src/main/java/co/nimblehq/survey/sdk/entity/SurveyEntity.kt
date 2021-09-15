@@ -7,29 +7,32 @@ import moe.banana.jsonapi2.Resource
 
 @JsonApi(type = "survey")
 class SurveyEntity : Resource() {
-    var title: String? = ""
-    var description: String = ""
+    @field:Json(name = "title")
+    var title: String? = null
+
+    @field:Json(name = "description")
+    var description: String? = null
 
     @field:Json(name = "thank_email_above_threshold")
-    var thankEmailAboveThreshold: String = ""
+    var thankEmailAboveThreshold: String? = null
 
     @field:Json(name = "thank_email_below_threshold")
-    var thankEmailBelowThreshold: String? = ""
+    var thankEmailBelowThreshold: String? = null
 
     @field:Json(name = "is_active")
-    var isActive: Boolean? = false
+    var isActive: Boolean? = null
 
     @field:Json(name = "cover_image_url")
-    var coverImageURL: String? = ""
+    var coverImageURL: String? = null
 
     @field:Json(name = "created_at")
-    var createdAt: String? = ""
+    var createdAt: String? = null
 
     @field:Json(name = "active_at")
-    var activeAt: String? = ""
+    var activeAt: String? = null
 
     @field:Json(name = "survey_type")
-    var surveyType: String? = ""
+    var surveyType: String? = null
 
     var questions: HasMany<QuestionEntity>? = null
 
