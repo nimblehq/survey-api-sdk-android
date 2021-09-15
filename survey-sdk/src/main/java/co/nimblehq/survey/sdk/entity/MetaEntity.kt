@@ -4,14 +4,14 @@ import com.squareup.moshi.Json
 
 data class MetaEntity(
     @Json(name = "page")
-    val page: Int,
+    val page: Int? = null,
 
     @Json(name = "pages")
-    val pages: Int,
+    val pages: Int? = null,
 
     @Json(name = "page_size")
-    val pageSize: Int,
+    val pageSize: Int? = null,
 
     @Json(name = "records")
-    val records: Int
+    val records: Int? = null
 )
