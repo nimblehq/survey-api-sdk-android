@@ -34,7 +34,10 @@ dependencies {
     api(
         "com.squareup.moshi:moshi-adapters:$moshi_version",
         "com.squareup.moshi:moshi-kotlin:$moshi_version",
+        "com.squareup.moshi:moshi:$moshi_version",
+        "moe.banana:moshi-jsonapi:3.5.0"
     )
+
     testImplementation(
         "junit:junit:4.13.2",
         "org.mockito:mockito-core:$mockito_version",
