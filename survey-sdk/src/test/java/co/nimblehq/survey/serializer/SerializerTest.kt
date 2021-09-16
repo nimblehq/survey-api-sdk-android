@@ -99,7 +99,6 @@ class SerializerTest {
             assertTrue(surveyType == "Restaurant")
         }
 
-
         // Relationship test
         assertNotNull(surveyDetail.questions)
         val questionList = surveyDetail.getQuestionList()
@@ -112,7 +111,6 @@ class SerializerTest {
             assertTrue(id == "d3afbcf2b1d60af845dc")
             assertTrue(type == "question")
         }
-
 
         // Included test
         val included = surveyDocument.included
