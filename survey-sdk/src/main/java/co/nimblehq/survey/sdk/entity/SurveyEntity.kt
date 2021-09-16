@@ -38,12 +38,6 @@ data class SurveyEntity(
 
 ) : Resource() {
     fun getQuestionList(): List<QuestionEntity>? {
-        val resources = questions?.get()
-        return resources?.map { resource ->
-            QuestionEntity().apply {
-                id = resource.id
-                type = resource.type
-            }
-        }
+        return questions?.get(document)
     }
 }

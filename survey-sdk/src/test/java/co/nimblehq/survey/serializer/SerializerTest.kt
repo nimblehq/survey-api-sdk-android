@@ -43,9 +43,10 @@ class SerializerTest {
                 .fromJson(JSON_SURVEY_LIST_TEST) as ArrayDocument<SurveyEntity>
 
         assertTrue(surveyList.isNotEmpty())
-        //Item test
 
+        //Item test
         val firstItem = surveyList.first()
+
         // Attributes test
         with(firstItem) {
             assertTrue(title == "Scarlett Bangkok")
@@ -57,19 +58,6 @@ class SerializerTest {
             assertTrue(createdAt == "2017-01-23T07:48:12.991Z")
             assertTrue(activeAt == "2015-10-08T07:04:00.000Z")
             assertTrue(surveyType == "Restaurant")
-        }
-
-        // Relationship test
-        assertNotNull(firstItem.questions)
-        val questionList = firstItem.getQuestionList()
-        assertTrue(questionList?.isNotEmpty() == true)
-
-        // First data test
-        val firstData = questionList?.first()
-        assertNotNull(firstData)
-        firstData?.run {
-            assertTrue(id == "d3afbcf2b1d60af845dc")
-            assertTrue(type == "question")
         }
 
         // Meta test
