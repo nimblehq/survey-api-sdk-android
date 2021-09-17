@@ -19,4 +19,3 @@ class LoginViewModel() : ViewModel() {
     }
 
 }
-
