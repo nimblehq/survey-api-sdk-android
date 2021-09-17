@@ -30,7 +30,7 @@ class SerializerTest {
             .add(AnswerEntity::class.java)
             .build()
         moshi = Moshi.Builder()
-            .add(jsonApiAdapterFactory) // ...
+            .add(jsonApiAdapterFactory)
             .add(KotlinJsonAdapterFactory())
             .build()
     }

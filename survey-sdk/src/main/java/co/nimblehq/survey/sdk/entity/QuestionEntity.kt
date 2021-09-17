@@ -49,7 +49,5 @@ data class QuestionEntity(
     var answers: HasMany<AnswerEntity>? = null
 
 ) : Resource() {
-    fun getAnswerList(): List<AnswerEntity>? {
-        return answers?.get(document)
-    }
+    fun getAnswerList(): List<AnswerEntity>? = answers?.get(document)
 }
