@@ -1,7 +1,6 @@
-package co.nimblehq.surveysdk.request
+package co.nimblehq.survey.sdk.request
 
 import com.squareup.moshi.Json
-
 
 open class BaseRequest {
     @Json(name = "client_id")
@@ -9,7 +8,6 @@ open class BaseRequest {
 
     @Json(name = "client_secret")
     var clientSecret: String = clientSecretInstance
-
 
     companion object {
         private var clientIdInstance = ""

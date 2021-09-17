@@ -1,7 +1,7 @@
 package co.nimblehq.sample
 
 import android.app.Application
-import co.nimblehq.surveysdk.SurveyApi
+import co.nimblehq.survey.sdk.SurveyApi
 
 class App : Application() {
     override fun onCreate() {
@@ -12,6 +12,5 @@ class App : Application() {
             .withClientId(BuildConfig.CLIENT_ID)
             .withClientSecret(BuildConfig.CLIENT_SECRET)
             .build()
-
     }
 }

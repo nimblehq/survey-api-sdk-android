@@ -1,13 +1,19 @@
-package co.nimblehq.surveysdk.entity
+package co.nimblehq.sample.entity
 
 import com.squareup.moshi.Json
 
 data class UserEntity(
+    @Json(name = "data")
     var data: Data
 ) {
     data class Data(
+        @Json(name = "id")
         val id: Long,
+
+        @Json(name = "type")
         val type: String,
+
+        @Json(name = "attributes")
         val attributes: Attributes
     ) {
         data class Attributes(
@@ -28,6 +34,4 @@ data class UserEntity(
         )
     }
 
-
 }
-
