@@ -29,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Login successful!", Toast.LENGTH_LONG).show()
                 val intent = Intent(this@LoginActivity, SurveyListActivity::class.java)
                 startActivity(intent)
+                finish()
 
             } else {
                 Toast.makeText(this, "Login FAIL!", Toast.LENGTH_LONG).show()
