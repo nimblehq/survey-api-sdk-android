@@ -37,5 +37,6 @@ data class SurveyEntity(
     var questions: HasMany<QuestionEntity>? = null
 
 ) : Resource() {
-    fun getQuestionList(): List<QuestionEntity>? = questions?.get(document)
+    val getQuestionList: List<QuestionEntity>?
+        get() = questions?.get(document)
 }

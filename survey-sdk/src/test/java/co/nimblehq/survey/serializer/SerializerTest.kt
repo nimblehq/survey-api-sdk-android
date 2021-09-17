@@ -101,7 +101,7 @@ class SerializerTest {
 
         // Relationship test
         assertNotNull(surveyDetail.questions)
-        val questionList = surveyDetail.getQuestionList()
+        val questionList = surveyDetail.getQuestionList
         assertTrue(questionList?.isNotEmpty() == true)
 
         // First data test
