@@ -1,10 +1,10 @@
-package co.nimblehq.surveysdk
+package co.nimblehq.survey.sdk
 
-import co.nimblehq.surveysdk.api.AppService
-import co.nimblehq.surveysdk.entity.SurveyDetailEntity
-import co.nimblehq.surveysdk.entity.SurveyListEntity
-import co.nimblehq.surveysdk.network.NetworkBuilder
-
+import co.nimblehq.survey.sdk.api.AppService
+import co.nimblehq.survey.sdk.entity.SurveyEntity
+import co.nimblehq.survey.sdk.network.NetworkBuilder
+import moe.banana.jsonapi2.ArrayDocument
+import moe.banana.jsonapi2.ObjectDocument
 
 class SurveyApi : NetworkBuilder() {
     private lateinit var service: AppService
@@ -51,11 +51,11 @@ class SurveyApi : NetworkBuilder() {
     }
 
     //public api
-    suspend fun getSurveyList(page: Int, size: Int): SurveyListEntity {
+    suspend fun getSurveyList(page: Int, size: Int): ArrayDocument<SurveyEntity> {
         return service.getSurveyList(page, size, version)
     }
 
-    suspend fun getSurveyDetail(id: String): SurveyDetailEntity {
+    suspend fun getSurveyDetail(id: String): ObjectDocument<SurveyEntity> {
         return service.getSurveyDetail(id, version)
     }
 
