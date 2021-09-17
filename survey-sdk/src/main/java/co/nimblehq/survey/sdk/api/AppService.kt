@@ -1,8 +1,9 @@
-package co.nimblehq.surveysdk.api
+package co.nimblehq.survey.sdk.api
 
 
-import co.nimblehq.surveysdk.entity.SurveyDetailEntity
-import co.nimblehq.surveysdk.entity.SurveyListEntity
+import co.nimblehq.survey.sdk.entity.SurveyEntity
+import moe.banana.jsonapi2.ArrayDocument
+import moe.banana.jsonapi2.ObjectDocument
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -14,12 +15,12 @@ interface AppService {
         @Query("page[number]") page: Int,
         @Query("page[size]") size: Int,
         @Path("version") version: String = "v1",
-    ): SurveyListEntity
+    ): ArrayDocument<SurveyEntity>
 
     @GET("/api/{version}/surveys/{id}")
     suspend fun getSurveyDetail(
         @Path("id") id: String,
         @Path("version") version: String = "v1",
-    ): SurveyDetailEntity
+    ): ObjectDocument<SurveyEntity>
 
 }
