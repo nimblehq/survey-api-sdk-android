@@ -60,6 +60,7 @@ open class NetworkBuilder {
     ): Retrofit.Builder {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
+            .addConverterFactory(MoshiBuilderProvider.getConverterFactory())
             .addConverterFactory(MoshiBuilderProvider.getJsonApiConverterFactory())
     }
 
