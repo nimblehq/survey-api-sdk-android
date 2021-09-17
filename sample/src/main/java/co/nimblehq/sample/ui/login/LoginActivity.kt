@@ -14,7 +14,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import co.nimblehq.sample.R
 import co.nimblehq.sample.databinding.ActivityLoginBinding
-import co.nimblehq.surveysdk.TestSdkClass
 
 class LoginActivity : AppCompatActivity() {
 
@@ -97,7 +96,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        username.setText(TestSdkClass.testSdk())
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
