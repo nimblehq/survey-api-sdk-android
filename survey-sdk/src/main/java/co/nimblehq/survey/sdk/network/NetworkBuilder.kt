@@ -61,4 +61,8 @@ class NetworkBuilder {
             .addConverterFactory(MoshiBuilderProvider.getJsonApiConverterFactory())
     }
 
+    inline fun <reified T> buildService(): T {
+        return provideRetrofit().create(T::class.java)
+    }
+
 }
