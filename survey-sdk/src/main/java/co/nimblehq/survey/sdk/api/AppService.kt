@@ -1,6 +1,5 @@
 package co.nimblehq.survey.sdk.api
 
-
 import co.nimblehq.survey.sdk.entity.SurveyEntity
 import moe.banana.jsonapi2.ArrayDocument
 import moe.banana.jsonapi2.ObjectDocument
