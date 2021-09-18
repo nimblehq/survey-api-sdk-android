@@ -33,6 +33,11 @@ abstract class NetworkBuilder {
         return this
     }
 
+    fun setToken(token: String): NetworkBuilder {
+        this.token = token
+        return this
+    }
+
     fun provideRetrofit(): Retrofit {
         val client: OkHttpClient = OkHttpClient.Builder()
             .connectTimeout(connectionTimeoutInSecond, TimeUnit.SECONDS)
