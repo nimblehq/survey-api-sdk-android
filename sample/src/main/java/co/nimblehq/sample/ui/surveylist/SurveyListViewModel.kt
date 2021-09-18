@@ -1,41 +1,38 @@
 package co.nimblehq.sample.ui.surveylist
 
-import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import co.nimblehq.sample.ui.SurveyUiModel
-import co.nimblehq.survey.sdk.model.SurveyModel
+import co.nimblehq.sample.ui.ModelResult
+import co.nimblehq.survey.sdk.SurveyApi
+import co.nimblehq.survey.sdk.entity.SurveyEntity
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import moe.banana.jsonapi2.ArrayDocument
 
 class SurveyListViewModel : ViewModel() {
 
-    init {
-        getSurveyList()
-    }
+    private val _surveyListResult = MutableLiveData<ModelResult<SurveyListModel>>()
+    val surveyListResult: LiveData<ModelResult<SurveyListModel>> = _surveyListResult
 
-    private val _surveyListResult = MutableLiveData<SurveyUiModel<List<SurveyModel>>>()
-    val surveyListResult: LiveData<SurveyUiModel<List<SurveyModel>>> = _surveyListResult
-
-    private fun getSurveyList() {
+    fun getSurveyList() {
         // can be launched in a separate asynchronous job
         viewModelScope.launch {
-            try {
-                //TODO: use postDelayed to simulate calling request from server
-                Handler().postDelayed({
-                    //TODO: hardcode for testing, need to be integrate with SDK later
-                    _surveyListResult.value = SurveyUiModel(
-                        success = mutableListOf(
-                            SurveyModel("0", "Survey 1", "Description 1"),
-                            SurveyModel("1", "Survey 2", "Description 2")
-                        )
-                    )
-                }, 2000)
-
-            } catch (e: Exception) {
-                e.printStackTrace()
+            withContext(Dispatchers.IO) {
+                try {
+                    val result = SurveyApi.instance.getSurveyList(page = 1, size = 10)
+                    val list = result as ArrayDocument<SurveyEntity>
+                    _surveyListResult.postValue(ModelResult(success = SurveyListModel(list)))
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    _surveyListResult.postValue(ModelResult(error = 1))
+                }
             }
         }
+
     }
+
 }
+

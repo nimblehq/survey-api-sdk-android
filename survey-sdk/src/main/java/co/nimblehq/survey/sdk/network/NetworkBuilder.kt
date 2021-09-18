@@ -1,6 +1,5 @@
 package co.nimblehq.survey.sdk.network
 
-import co.nimblehq.survey.sdk.api.AppService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -10,7 +9,7 @@ import retrofit2.Retrofit
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-open class NetworkBuilder {
+abstract class NetworkBuilder {
     private var debugMode = false
     private var baseUrl = ""
     private var connectionTimeoutInSecond = 30L
@@ -38,6 +37,7 @@ open class NetworkBuilder {
         return this
     }
 
+
     fun setToken(token: String): NetworkBuilder {
         this.token = token
         return this
@@ -48,8 +48,7 @@ open class NetworkBuilder {
         return this
     }
 
-    fun provideRetrofit(
-    ): Retrofit {
+    fun provideRetrofit(): Retrofit {
         val client: OkHttpClient = OkHttpClient.Builder()
             .connectTimeout(connectionTimeoutInSecond, TimeUnit.SECONDS)
             .readTimeout(readTimeoutInSecond, TimeUnit.SECONDS)
@@ -72,10 +71,6 @@ open class NetworkBuilder {
             .baseUrl(baseUrl)
             .addConverterFactory(MoshiBuilderProvider.getJsonApiConverterFactory())
             .addConverterFactory(MoshiBuilderProvider.getConverterFactory())
-    }
-
-    protected fun buildAppService(): AppService {
-        return provideRetrofit().create(AppService::class.java)
     }
 
     inline fun <reified T> buildService(): T {
