@@ -25,10 +25,14 @@ class SurveyDetailActivity : AppCompatActivity() {
 
         surveyListViewModel.surveyDetailResult.observe(this@SurveyDetailActivity, {
             it.success?.let { model ->
+                binding.description.text = model.surveyDetail.description ?: ""
             } ?: Toast.makeText(this, "Error on getting Survey Detail!", Toast.LENGTH_LONG).show()
 
         })
-        surveyListViewModel.getSurveyDetail()
+        intent.getStringExtra("id")?.let {
+            surveyListViewModel.getSurveyDetail(it)
+        }
+
     }
 
 }

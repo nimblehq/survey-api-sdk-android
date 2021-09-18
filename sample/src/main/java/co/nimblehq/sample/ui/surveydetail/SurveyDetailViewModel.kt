@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.nimblehq.sample.ui.ModelResult
-import co.nimblehq.surveysdk.SurveyApi
+import co.nimblehq.survey.sdk.SurveyApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -19,8 +19,8 @@ class SurveyDetailViewModel : ViewModel() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    val result = SurveyApi.getInstance().getSurveyDetail(id = id)
-                    _surveyDetailResult.postValue(ModelResult(success = SurveyDetailModel(result)))
+                    val result = SurveyApi.instance.getSurveyDetail(id = id)
+                    _surveyDetailResult.postValue(ModelResult(success = SurveyDetailModel(result.get())))
 
                 } catch (exception: Exception) {
                     exception.printStackTrace()
