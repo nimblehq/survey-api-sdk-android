@@ -37,8 +37,7 @@ class NetworkBuilder {
         return this
     }
 
-    fun provideRetrofit(
-    ): Retrofit {
+    fun provideRetrofit(): Retrofit {
         val client: OkHttpClient = OkHttpClient.Builder()
             .connectTimeout(connectionTimeoutInSecond, TimeUnit.SECONDS)
             .readTimeout(readTimeoutInSecond, TimeUnit.SECONDS)
@@ -54,8 +53,7 @@ class NetworkBuilder {
                 if (debugMode) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
         }
 
-    private fun provideRetrofitBuilder(
-    ): Retrofit.Builder {
+    private fun provideRetrofitBuilder(): Retrofit.Builder {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(MoshiBuilderProvider.getJsonApiConverterFactory())
