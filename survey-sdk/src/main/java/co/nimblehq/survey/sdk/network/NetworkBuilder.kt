@@ -5,7 +5,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 
-open class NetworkBuilder {
+abstract class NetworkBuilder {
     private var debugMode = false
     private var baseUrl = ""
     private var connectionTimeoutInSecond = 30L
