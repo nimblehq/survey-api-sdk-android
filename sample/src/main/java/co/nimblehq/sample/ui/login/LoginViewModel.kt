@@ -28,8 +28,8 @@ class LoginViewModel : ViewModel() {
             withContext(Dispatchers.IO) {
                 try {
                     val result = authenService.loginEmail(request)
-                    SurveyApi.instance.setTokenKey(result.data.attributes.accessToken)
-                    _loginResult.postValue(Result.success(result))
+                    SurveyApi.getInstance().setTokenApi(result.data.attributes.accessToken)
+                    _loginResult.postValue(ModelResult(success = UserModel("Hello!")))
 
                 } catch (exception: Exception) {
                     exception.printStackTrace()
