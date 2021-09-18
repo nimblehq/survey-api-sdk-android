@@ -12,9 +12,10 @@ open class BaseRequest {
     companion object {
         private var clientIdInstance = ""
         private var clientSecretInstance = ""
-        fun updateKey(id: String, secret: String) {
-            clientIdInstance = id
-            clientSecretInstance = secret
+
+        fun updateAuthenticationInfo(clientId: String, clientSecret: String) {
+            clientIdInstance = clientId
+            clientSecretInstance = clientSecret
         }
     }
 }

@@ -3,7 +3,6 @@ package co.nimblehq.survey.sdk
 import co.nimblehq.survey.sdk.api.AppService
 import co.nimblehq.survey.sdk.entity.SurveyEntity
 import co.nimblehq.survey.sdk.network.NetworkBuilder
-import co.nimblehq.survey.sdk.request.BaseRequest
 import moe.banana.jsonapi2.ArrayDocument
 import moe.banana.jsonapi2.ObjectDocument
 
@@ -14,7 +13,7 @@ class SurveyApi private constructor(): NetworkBuilder() {
     private var clientSecret = ""
 
     companion object {
-        private val instance: SurveyApi by lazy { SurveyApi() }
+        val instance: SurveyApi by lazy { SurveyApi() }
     }
 
     fun withMode(debugMode: Boolean): SurveyApi {
