@@ -5,11 +5,12 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 
-open class NetworkBuilder {
+abstract class NetworkBuilder {
     private var debugMode = false
     private var baseUrl = ""
     private var connectionTimeoutInSecond = 30L
     private var readTimeoutInSecond = 30L
+    private var version = "v1"
 
     fun setDebugMode(debugMode: Boolean): NetworkBuilder {
         this.debugMode = debugMode
@@ -31,8 +32,12 @@ open class NetworkBuilder {
         return this
     }
 
-    fun provideRetrofit(
-    ): Retrofit {
+    fun setVersion(version: String): NetworkBuilder {
+        this.version = version
+        return this
+    }
+
+    fun provideRetrofit(): Retrofit {
         val client: OkHttpClient = OkHttpClient.Builder()
             .connectTimeout(connectionTimeoutInSecond, TimeUnit.SECONDS)
             .readTimeout(readTimeoutInSecond, TimeUnit.SECONDS)
@@ -48,8 +53,7 @@ open class NetworkBuilder {
                 if (debugMode) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
         }
 
-    private fun provideRetrofitBuilder(
-    ): Retrofit.Builder {
+    private fun provideRetrofitBuilder(): Retrofit.Builder {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(MoshiBuilderProvider.getJsonApiConverterFactory())

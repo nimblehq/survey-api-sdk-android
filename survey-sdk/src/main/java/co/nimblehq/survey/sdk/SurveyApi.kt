@@ -6,18 +6,12 @@ import co.nimblehq.survey.sdk.network.NetworkBuilder
 import moe.banana.jsonapi2.ArrayDocument
 import moe.banana.jsonapi2.ObjectDocument
 
-class SurveyApi : NetworkBuilder() {
-    private lateinit var service: AppService
+class SurveyApi private constructor(): NetworkBuilder() {
+    private val service: AppService by lazy { buildService() }
     private var version = "v1"
 
     companion object {
-        private lateinit var instancce: SurveyApi
-        fun getInstance(): SurveyApi = instancce
-
-        fun setup(): SurveyApi {
-            instancce = SurveyApi()
-            return instancce
-        }
+        private val instance: SurveyApi by lazy { SurveyApi() }
     }
 
     fun withMode(debugMode: Boolean): SurveyApi {
@@ -45,12 +39,8 @@ class SurveyApi : NetworkBuilder() {
         return this
     }
 
-    //IMPORTANT : need to be called after the configuration
-    fun build() {
-        service = buildService()
-    }
+    //below are public apis
 
-    //public api
     suspend fun getSurveyList(page: Int, size: Int): ArrayDocument<SurveyEntity> {
         return service.getSurveyList(page, size, version)
     }
