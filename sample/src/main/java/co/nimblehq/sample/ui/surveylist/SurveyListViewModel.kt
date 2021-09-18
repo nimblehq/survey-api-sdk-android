@@ -17,6 +17,7 @@ class SurveyListViewModel : ViewModel() {
         // can be launched in a separate asynchronous job
         viewModelScope.launch {
             try {
+                //TODO: hardcode for testing, need to be integrate with SDK later
                 _surveyListResult.value = ModelResult(success = SurveyListModel(listSurvey = mutableListOf(
                     SurveyEntity("Survey 1", "Description 1"), SurveyEntity("Survey 2", "Description 2")
                 )))
