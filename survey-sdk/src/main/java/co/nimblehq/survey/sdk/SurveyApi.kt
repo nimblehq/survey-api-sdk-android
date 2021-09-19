@@ -58,7 +58,6 @@ class SurveyApi private constructor(): NetworkBuilder() {
 
     //Below are public apis
 
-    //public api
     suspend fun getSurveyList(page: Int, size: Int): ArrayDocument<SurveyEntity> {
         return service.getSurveyList(page, size, version)
     }

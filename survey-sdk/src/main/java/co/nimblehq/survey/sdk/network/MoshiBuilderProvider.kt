@@ -9,10 +9,14 @@ import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import moe.banana.jsonapi2.JsonApiConverterFactory
 import moe.banana.jsonapi2.ResourceAdapterFactory
+import retrofit2.Converter
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.*
 
 object MoshiBuilderProvider {
+    enum class ConverterType {
+        JSONAPI, JSON
+    }
 
     private val moshiBuilder: Moshi.Builder
         get() = Moshi.Builder()
@@ -25,9 +29,16 @@ object MoshiBuilderProvider {
         .add(AnswerEntity::class.java)
         .build()
 
-    private fun provideMoshi(): Moshi = moshiBuilder.add((provideJsonApiFactory())).build()
+    private fun provideJsonApiMoshi(): Moshi = moshiBuilder.add((provideJsonApiFactory())).build()
 
-    fun getJsonApiConverterFactory() : JsonApiConverterFactory = JsonApiConverterFactory.create(provideMoshi())
+    private fun getJsonApiConverterFactory() : JsonApiConverterFactory = JsonApiConverterFactory.create(provideJsonApiMoshi())
 
-    fun getConverterFactory(): MoshiConverterFactory = MoshiConverterFactory.create(moshiBuilder.build())
+    private fun getConverterFactory(): MoshiConverterFactory = MoshiConverterFactory.create(moshiBuilder.build())
+
+    fun provide (type : ConverterType) : Converter.Factory {
+        return when(type)  {
+            ConverterType.JSONAPI -> getConverterFactory()
+            else -> getJsonApiConverterFactory()
+        }
+    }
 }

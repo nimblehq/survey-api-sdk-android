@@ -3,7 +3,7 @@ package co.nimblehq.sample
 import android.app.Application
 import co.nimblehq.survey.sdk.SurveyApi
 
-class App : Application() {
+class SampleApp : Application() {
     override fun onCreate() {
         super.onCreate()
         SurveyApi.setup()
