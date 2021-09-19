@@ -38,8 +38,8 @@ object MoshiBuilderProvider {
 
     fun provide (type : ConverterType) : Converter.Factory {
         return when(type)  {
-            ConverterType.JSONAPI -> getConverterFactory()
-            else -> getJsonApiConverterFactory()
+            ConverterType.JSONAPI -> getJsonApiConverterFactory()
+            else -> getConverterFactory()
         }
     }
 }

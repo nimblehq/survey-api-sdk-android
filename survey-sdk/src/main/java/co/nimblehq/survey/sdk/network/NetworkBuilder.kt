@@ -58,8 +58,8 @@ abstract class NetworkBuilder {
     private fun provideRetrofitBuilder(): Retrofit.Builder {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
-            .addConverterFactory(MoshiBuilderProvider.provide(MoshiBuilderProvider.ConverterType.JSON))
             .addConverterFactory(MoshiBuilderProvider.provide(MoshiBuilderProvider.ConverterType.JSONAPI))
+            .addConverterFactory(MoshiBuilderProvider.provide(MoshiBuilderProvider.ConverterType.JSON))
     }
 
     protected fun buildAppService(): AppService {
