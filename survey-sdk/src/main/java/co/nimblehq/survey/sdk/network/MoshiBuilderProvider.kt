@@ -14,6 +14,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.*
 
 object MoshiBuilderProvider {
+
     enum class ConverterType {
         JSONAPI, JSON
     }

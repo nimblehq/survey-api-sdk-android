@@ -7,6 +7,7 @@ import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 
 abstract class NetworkBuilder {
+
     private var debugMode = false
     private var baseUrl = ""
     private var connectionTimeoutInSecond = 30L
