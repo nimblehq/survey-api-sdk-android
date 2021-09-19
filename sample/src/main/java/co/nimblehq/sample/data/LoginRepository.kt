@@ -1,6 +1,7 @@
 package co.nimblehq.sample.data
 
 import co.nimblehq.sample.data.model.LoggedInUser
+import co.nimblehq.survey.sdk.ResultSdk
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -27,11 +28,11 @@ class LoginRepository(val dataSource: LoginDataSource) {
         dataSource.logout()
     }
 
-    fun login(username: String, password: String): Result<LoggedInUser> {
+    fun login(username: String, password: String): ResultSdk<LoggedInUser> {
         // handle login
         val result = dataSource.login(username, password)
 
-        if (result is Result.Success) {
+        if (result is ResultSdk.Success) {
             setLoggedInUser(result.data)
         }
 
