@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import co.nimblehq.sample.databinding.ActivitySurveyDetailBinding
+import co.nimblehq.survey.sdk.ResultSdk
 
 class SurveyDetailActivity : AppCompatActivity() {
 
@@ -24,9 +25,11 @@ class SurveyDetailActivity : AppCompatActivity() {
             .get(SurveyDetailViewModel::class.java)
 
         surveyListViewModel.surveyDetailResult.observe(this@SurveyDetailActivity, {
-            it.success?.let { model ->
-                binding.description.text = model.surveyDetail.description ?: ""
-            } ?: Toast.makeText(this, "Error on getting Survey Detail!", Toast.LENGTH_LONG).show()
+            if (it is ResultSdk.Success) {
+                binding.description.text = it.data.description ?: ""
+            } else {
+                Toast.makeText(this, "Error on getting Survey Detail!", Toast.LENGTH_LONG).show()
+            }
 
         })
         intent.getStringExtra("id")?.let {
