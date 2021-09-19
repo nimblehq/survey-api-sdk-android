@@ -4,13 +4,15 @@ import android.app.Application
 import co.nimblehq.survey.sdk.SurveyApi
 
 class SampleApp : Application() {
+
     override fun onCreate() {
         super.onCreate()
-        SurveyApi.setup()
+        SurveyApi.instance
             .withMode(BuildConfig.DEBUG)
             .withBaseUrl(BuildConfig.BASE_URL)
-            .withClientId(BuildConfig.CLIENT_ID)
-            .withClientSecret(BuildConfig.CLIENT_SECRET)
-            .build()
+            .withCredentials(
+                clientID = BuildConfig.CLIENT_ID,
+                clientSecret = BuildConfig.CLIENT_SECRET
+            )
     }
 }

@@ -15,10 +15,25 @@ class LoginViewModel : ViewModel() {
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
 
-    fun login(username: String, password: String) {
-        // can be launched in a separate asynchronous job
-        _loginResult.value =
-            LoginResult(success = LoggedInUserView("test", "token"))
-    }
+    // As the SDK does not support Authentication service so far, then we will use custom service from the SDK
+    val authenService = SurveyApi.instance.buildService<AuthService>()
 
+    fun login() {
+
+        // Hardcoding the credential information because we dont have UI for this one
+        val request = LoginRequest(grantType = "password", email = "dev@nimblehq.co", "12345678")
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                try {
+                    val result = authenService.loginEmail(request)
+                    SurveyApi.instance.setTokenApi(result.data.attributes.accessToken)
+                    _loginResult.postValue(LoginResult(success = LoggedInUserView("Hello!")))
+
+                } catch (exception: Exception) {
+                    exception.printStackTrace()
+                    _loginResult.postValue(LoginResult(error = 1))
+                }
+            }
+        }
+    }
 }

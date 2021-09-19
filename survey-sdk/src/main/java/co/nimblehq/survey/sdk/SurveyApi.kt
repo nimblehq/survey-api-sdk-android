@@ -3,12 +3,11 @@ package co.nimblehq.survey.sdk
 import co.nimblehq.survey.sdk.api.AppService
 import co.nimblehq.survey.sdk.entity.SurveyEntity
 import co.nimblehq.survey.sdk.network.NetworkBuilder
+import co.nimblehq.survey.sdk.request.BaseRequest
 
 class SurveyApi private constructor() : NetworkBuilder() {
     private val service: AppService by lazy { buildService() }
     private var version = "v1"
-    private var clientId = ""
-    private var clientSecret = ""
 
     companion object {
         val instance: SurveyApi by lazy { SurveyApi() }
@@ -24,14 +23,8 @@ class SurveyApi private constructor() : NetworkBuilder() {
         return this
     }
 
-    fun withClientId(clientId: String): SurveyApi {
-        this.clientId = clientId
-        return this
-    }
-
-    fun withClientSecret(clientSecret: String): SurveyApi {
-        this.clientSecret = clientSecret
-        return this
+    fun withCredentials(clientID: String, clientSecret: String) {
+        BaseRequest.updateAuthenticationInfo(clientID, clientSecret)
     }
 
     fun setTokenApi(token: String): SurveyApi {
