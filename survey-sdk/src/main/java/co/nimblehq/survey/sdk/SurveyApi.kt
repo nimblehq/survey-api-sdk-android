@@ -3,10 +3,8 @@ package co.nimblehq.survey.sdk
 import co.nimblehq.survey.sdk.api.AppService
 import co.nimblehq.survey.sdk.entity.SurveyEntity
 import co.nimblehq.survey.sdk.network.NetworkBuilder
-import moe.banana.jsonapi2.ArrayDocument
-import moe.banana.jsonapi2.ObjectDocument
 
-class SurveyApi private constructor(): NetworkBuilder() {
+class SurveyApi private constructor() : NetworkBuilder() {
     private val service: AppService by lazy { buildService() }
     private var version = "v1"
 
@@ -41,12 +39,26 @@ class SurveyApi private constructor(): NetworkBuilder() {
 
     //Below are public apis
 
-    suspend fun getSurveyList(page: Int, size: Int): ArrayDocument<SurveyEntity> {
-        return service.getSurveyList(page, size, version)
+    suspend fun getSurveyList(page: Int, size: Int): ResultSdk<List<SurveyEntity>> {
+        return try {
+            val result = service.getSurveyList(page, size, version)
+            ResultSdk.Success(result)
+
+        } catch (exception: Exception) {
+            exception.printStackTrace()
+            ResultSdk.Error(exception)
+        }
     }
 
-    suspend fun getSurveyDetail(id: String): ObjectDocument<SurveyEntity> {
-        return service.getSurveyDetail(id, version)
+    suspend fun getSurveyDetail(id: String): ResultSdk<SurveyEntity> {
+        return try {
+            val result = service.getSurveyDetail(id, version)
+            ResultSdk.Success(result.get())
+
+        } catch (exception: Exception) {
+            exception.printStackTrace()
+            ResultSdk.Error(exception)
+        }
     }
 
 }
