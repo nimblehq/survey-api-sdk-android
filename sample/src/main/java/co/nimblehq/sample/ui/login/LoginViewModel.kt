@@ -1,12 +1,8 @@
 package co.nimblehq.sample.ui.login
 
-import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import co.nimblehq.sample.R
-import co.nimblehq.sample.data.LoginRepository
-import co.nimblehq.survey.sdk.Result
 
 class LoginViewModel() : ViewModel() {
 
