@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class LoginViewModel : ViewModel() {
+
     private val _loginResult = MutableLiveData<Result<UserEntity>>()
     val loginResult: LiveData<Result<UserEntity>> = _loginResult
 
