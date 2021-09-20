@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import co.nimblehq.sample.databinding.ActivitySurveyListBinding
+import co.nimblehq.survey.sdk.Result
 
 class SurveyListActivity : AppCompatActivity() {
 
@@ -23,9 +24,11 @@ class SurveyListActivity : AppCompatActivity() {
             .get(SurveyListViewModel::class.java)
 
         surveyListViewModel.surveyListResult.observe(this@SurveyListActivity, {
-            it.success?.let { model ->
-                (binding.surveyListView.adapter as SurveyAdapter).updateData(model.listSurvey)
-            } ?: Toast.makeText(this, "Error on getting Survey List!", Toast.LENGTH_LONG).show()
+            if (it is Result.Success) {
+                (binding.surveyListView.adapter as SurveyAdapter).updateData(it.data)
+            } else {
+                Toast.makeText(this, "Error on getting Survey List!", Toast.LENGTH_LONG).show()
+            }
 
         })
         binding.surveyListView.adapter = SurveyAdapter()
