@@ -10,7 +10,7 @@ class SurveyApi private constructor() : NetworkBuilder() {
     private var version = "v1"
 
     companion object {
-        private val instance: SurveyApi by lazy { SurveyApi() }
+        val instance: SurveyApi by lazy { SurveyApi() }
     }
 
     fun withMode(debugMode: Boolean): SurveyApi {
@@ -37,8 +37,6 @@ class SurveyApi private constructor() : NetworkBuilder() {
         this.version = version
         return this
     }
-
-    //Below are public apis
 
     /**
      * Return the list of Surveys. The request is asynchronously done in the background.
