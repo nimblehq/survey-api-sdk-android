@@ -3,6 +3,7 @@ package co.nimblehq.survey.sdk
 import co.nimblehq.survey.sdk.api.AppService
 import co.nimblehq.survey.sdk.entity.SurveyEntity
 import co.nimblehq.survey.sdk.network.NetworkBuilder
+import kotlinx.coroutines.*
 
 class SurveyApi private constructor() : NetworkBuilder() {
     private val service: AppService by lazy { buildService() }
@@ -39,26 +40,49 @@ class SurveyApi private constructor() : NetworkBuilder() {
 
     //Below are public apis
 
-    suspend fun getSurveyList(page: Int, size: Int): ResultSdk<List<SurveyEntity>> {
-        return try {
-            val result = service.getSurveyList(page, size, version)
-            ResultSdk.Success(result)
-
-        } catch (exception: Exception) {
-            exception.printStackTrace()
-            ResultSdk.Error(exception)
+    /**
+     * Return the list of Surveys. The request is asynchronously done in the background.
+     *
+     * params: [page] the page number which want to fetch.
+     * params: [size] size of page.
+     * params: [onResponse] is a callback when the data is fetched.
+     */
+    @DelicateCoroutinesApi
+    fun getSurveyList(page: Int, size: Int, onResponse: (ResultSdk<List<SurveyEntity>>) -> Unit) {
+        GlobalScope.launch(Dispatchers.IO) {
+            val result = try {
+                val result = service.getSurveyList(version, page, size)
+                ResultSdk.Success(result)
+            } catch (exception: Exception) {
+                exception.printStackTrace()
+                ResultSdk.Error(exception)
+            }
+            withContext(Dispatchers.Main) {
+                onResponse(result)
+            }
         }
     }
 
-    suspend fun getSurveyDetail(id: String): ResultSdk<SurveyEntity> {
-        return try {
-            val result = service.getSurveyDetail(id, version)
-            ResultSdk.Success(result.get())
+    /**
+     * Return the detail of Survey. The request is asynchronously done in the background.
+     *
+     * params: [surveyId] id of Survey which want to fetch detail.
+     * params: [onResponse] is a callback when the data is fetched.
+     */
+    @DelicateCoroutinesApi
+    fun getSurveyDetail(surveyId: String, onResponse: (ResultSdk<SurveyEntity>) -> Unit) {
+        GlobalScope.launch(Dispatchers.IO) {
+            val result = try {
+                val result = service.getSurveyDetail(surveyId, version)
+                ResultSdk.Success(result.get())
 
-        } catch (exception: Exception) {
-            exception.printStackTrace()
-            ResultSdk.Error(exception)
+            } catch (exception: Exception) {
+                exception.printStackTrace()
+                ResultSdk.Error(exception)
+            }
+            withContext(Dispatchers.Main) {
+                onResponse(result)
+            }
         }
     }
-
 }

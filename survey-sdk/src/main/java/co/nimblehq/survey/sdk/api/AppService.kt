@@ -11,15 +11,15 @@ interface AppService {
 
     @GET("/api/{version}/surveys")
     suspend fun getSurveyList(
-        @Query("page[number]") page: Int,
-        @Query("page[size]") size: Int,
         @Path("version") version: String = "v1",
+        @Query("page[number]") page: Int,
+        @Query("page[size]") size: Int
     ): ArrayDocument<SurveyEntity>
 
     @GET("/api/{version}/surveys/{id}")
     suspend fun getSurveyDetail(
         @Path("id") id: String,
-        @Path("version") version: String = "v1",
+        @Path("version") version: String = "v1"
     ): ObjectDocument<SurveyEntity>
 
 }
