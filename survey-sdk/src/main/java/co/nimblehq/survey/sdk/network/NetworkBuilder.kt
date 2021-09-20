@@ -1,6 +1,11 @@
 package co.nimblehq.survey.sdk.network
 
 import co.nimblehq.survey.sdk.api.AppService
+import co.nimblehq.survey.sdk.network.MoshiBuilderProvider.getConverterFactory
+import co.nimblehq.survey.sdk.network.MoshiBuilderProvider.getJsonApiConverterFactory
+import co.nimblehq.survey.sdk.network.MoshiBuilderProvider.provideJsonApiFactory
+import co.nimblehq.survey.sdk.network.MoshiBuilderProvider.provideJsonApiMoshi
+import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -58,8 +63,15 @@ abstract class NetworkBuilder {
     private fun provideRetrofitBuilder(): Retrofit.Builder {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
-            .addConverterFactory(MoshiBuilderProvider.provide(MoshiBuilderProvider.ConverterType.JSONAPI))
-            .addConverterFactory(MoshiBuilderProvider.provide(MoshiBuilderProvider.ConverterType.JSON))
+            .addConverterFactory(
+                getJsonApiConverterFactory(
+                    provideJsonApiMoshi(
+                        Moshi.Builder(),
+                        provideJsonApiFactory()
+                    )
+                )
+            )
+            .addConverterFactory(getConverterFactory(Moshi.Builder()))
     }
 
     protected fun buildAppService(): AppService {
