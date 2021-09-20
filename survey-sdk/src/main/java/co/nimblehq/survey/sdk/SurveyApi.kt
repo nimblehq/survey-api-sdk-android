@@ -57,6 +57,7 @@ class SurveyApi private constructor() : NetworkBuilder() {
      */
     @DelicateCoroutinesApi
     fun getSurveyList(page: Int, size: Int, onResponse: (Result<List<SurveyEntity>>) -> Unit) {
+        //TODO: need to look back the way for data manipulation
         GlobalScope.launch(Dispatchers.IO) {
             val result = try {
                 val result = service.getSurveyList(version, page, size)
@@ -79,6 +80,7 @@ class SurveyApi private constructor() : NetworkBuilder() {
      */
     @DelicateCoroutinesApi
     fun getSurveyDetail(surveyId: String, onResponse: (Result<SurveyEntity>) -> Unit) {
+        //TODO: need to look back the way for data manipulation
         GlobalScope.launch(Dispatchers.IO) {
             val result = try {
                 val result = service.getSurveyDetail(surveyId, version)

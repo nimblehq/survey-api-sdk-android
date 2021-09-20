@@ -23,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
 
 
         loginViewModel.loginResult.observe(this@LoginActivity, Observer {
-            if (it.success != null) {
+            if (it.isSuccess) {
                 Toast.makeText(this, "Login successful!", Toast.LENGTH_LONG).show()
             } else {
                 Toast.makeText(this, "Login FAIL!", Toast.LENGTH_LONG).show()
@@ -34,8 +34,5 @@ class LoginActivity : AppCompatActivity() {
         binding.login.setOnClickListener {
             loginViewModel.login()
         }
-
     }
-
 }
-
