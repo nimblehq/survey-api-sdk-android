@@ -48,14 +48,14 @@ class SurveyApi private constructor() : NetworkBuilder() {
      * params: [onResponse] is a callback when the data is fetched.
      */
     @DelicateCoroutinesApi
-    fun getSurveyList(page: Int, size: Int, onResponse: (ResultSdk<List<SurveyEntity>>) -> Unit) {
+    fun getSurveyList(page: Int, size: Int, onResponse: (Result<List<SurveyEntity>>) -> Unit) {
         GlobalScope.launch(Dispatchers.IO) {
             val result = try {
                 val result = service.getSurveyList(version, page, size)
-                ResultSdk.Success(result)
+                Result.Success(result)
             } catch (exception: Exception) {
                 exception.printStackTrace()
-                ResultSdk.Error(exception)
+                Result.Error(exception)
             }
             withContext(Dispatchers.Main) {
                 onResponse(result)
@@ -70,15 +70,15 @@ class SurveyApi private constructor() : NetworkBuilder() {
      * params: [onResponse] is a callback when the data is fetched.
      */
     @DelicateCoroutinesApi
-    fun getSurveyDetail(surveyId: String, onResponse: (ResultSdk<SurveyEntity>) -> Unit) {
+    fun getSurveyDetail(surveyId: String, onResponse: (Result<SurveyEntity>) -> Unit) {
         GlobalScope.launch(Dispatchers.IO) {
             val result = try {
                 val result = service.getSurveyDetail(surveyId, version)
-                ResultSdk.Success(result.get())
+                Result.Success(result.get())
 
             } catch (exception: Exception) {
                 exception.printStackTrace()
-                ResultSdk.Error(exception)
+                Result.Error(exception)
             }
             withContext(Dispatchers.Main) {
                 onResponse(result)
