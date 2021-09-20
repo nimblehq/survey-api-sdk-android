@@ -1,7 +1,6 @@
 package co.nimblehq.sample.data
 
 import co.nimblehq.sample.data.model.LoggedInUser
-import co.nimblehq.survey.sdk.Result
 import java.io.IOException
 
 /**
@@ -13,9 +12,9 @@ class LoginDataSource {
         try {
             // TODO: handle loggedInUser authentication
             val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), "Jane Doe")
-            return Result.Success(fakeUser)
+            return Result.success(fakeUser)
         } catch (e: Throwable) {
-            return Result.Error(IOException("Error logging in", e))
+            return Result.failure(IOException("Error logging in", e))
         }
     }
 
