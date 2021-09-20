@@ -60,10 +60,10 @@ class SurveyApi private constructor() : NetworkBuilder() {
         GlobalScope.launch(Dispatchers.IO) {
             val result = try {
                 val result = service.getSurveyList(version, page, size)
-                Result.Success(result)
+                Result.success(result)
             } catch (exception: Exception) {
                 exception.printStackTrace()
-                Result.Error(exception)
+                Result.failure(exception)
             }
             withContext(Dispatchers.Main) {
                 onResponse(result)
@@ -82,11 +82,11 @@ class SurveyApi private constructor() : NetworkBuilder() {
         GlobalScope.launch(Dispatchers.IO) {
             val result = try {
                 val result = service.getSurveyDetail(surveyId, version)
-                Result.Success(result.get())
+                Result.success(result.get())
 
             } catch (exception: Exception) {
                 exception.printStackTrace()
-                Result.Error(exception)
+                Result.failure(exception)
             }
             withContext(Dispatchers.Main) {
                 onResponse(result)
