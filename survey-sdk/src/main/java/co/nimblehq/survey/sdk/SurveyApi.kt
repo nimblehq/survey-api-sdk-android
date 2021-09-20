@@ -48,8 +48,6 @@ class SurveyApi private constructor() : NetworkBuilder() {
         return this
     }
 
-    //Below are public apis
-
     /**
      * Return the list of Surveys. The request is asynchronously done in the background.
      *
