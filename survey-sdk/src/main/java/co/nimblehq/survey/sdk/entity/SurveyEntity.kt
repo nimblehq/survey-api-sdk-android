@@ -46,6 +46,6 @@ fun SurveyEntity.toSurveyModel(): SurveyModel {
     return SurveyModel(
         surveyId = id,
         surveyTitle = title ?: "",
-        surveyDescription = description ?: "å"
+        surveyDescription = description ?: ""
     )
 }
