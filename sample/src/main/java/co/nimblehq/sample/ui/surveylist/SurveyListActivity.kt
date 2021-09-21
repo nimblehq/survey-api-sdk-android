@@ -22,13 +22,11 @@ class SurveyListActivity : AppCompatActivity() {
 
         surveyListViewModel.surveyListResult.observe(this@SurveyListActivity,{
             it.success?.let { result ->
-                (binding.surveyListView.adapter as SurveyAdapter).updateData(result.listSurvey)
+                (binding.surveyListView.adapter as SurveyAdapter).updateData(result)
             }
         })
 
         binding.surveyListView.adapter = SurveyAdapter()
-
-        surveyListViewModel.getSurveyList()
 
     }
 
