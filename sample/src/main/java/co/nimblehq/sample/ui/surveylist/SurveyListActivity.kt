@@ -27,6 +27,5 @@ class SurveyListActivity : AppCompatActivity() {
         })
 
         binding.surveyListView.adapter = SurveyAdapter()
-
     }
 }

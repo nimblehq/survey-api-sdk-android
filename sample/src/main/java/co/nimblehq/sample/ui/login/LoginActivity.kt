@@ -22,10 +22,10 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
-        loginViewModel.loginResult.observe(this@LoginActivity, {
+        loginViewModel.loginResult.observe(this, {
             if (it.isSuccess) {
                 Toast.makeText(this, "Login successful!", Toast.LENGTH_LONG).show()
-                val intent = Intent(this@LoginActivity, SurveyListActivity::class.java)
+                val intent = Intent(this, SurveyListActivity::class.java)
                 startActivity(intent)
                 finish()
 

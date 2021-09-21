@@ -18,7 +18,7 @@ class SurveyListViewModel : ViewModel() {
     private val _surveyListResult = MutableLiveData<SurveyUiModel<List<SurveyModel>>>()
     val surveyListResult: LiveData<SurveyUiModel<List<SurveyModel>>> = _surveyListResult
 
-    fun getSurveyList() {
+    private fun getSurveyList() {
         // can be launched in a separate asynchronous job
         viewModelScope.launch {
             try {
