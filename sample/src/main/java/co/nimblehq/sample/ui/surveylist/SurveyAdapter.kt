@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import co.nimblehq.survey.sdk.entity.SurveyEntity
 
 class SurveyAdapter : RecyclerView.Adapter<SurveyAdapter.SurveyViewHolder>() {
+
     private val dataList = mutableListOf<SurveyEntity>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SurveyViewHolder {
