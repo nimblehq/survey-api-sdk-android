@@ -1,5 +1,6 @@
 package co.nimblehq.survey.sdk.entity
 
+import co.nimblehq.survey.sdk.model.SurveyModel
 import com.squareup.moshi.Json
 import moe.banana.jsonapi2.HasMany
 import moe.banana.jsonapi2.JsonApi
@@ -39,4 +40,12 @@ data class SurveyEntity(
 ) : Resource() {
     val questionList: List<QuestionEntity>?
         get() = questions?.get(document)
+}
+
+fun SurveyEntity.toSurveyModel(): SurveyModel {
+    return SurveyModel(
+        surveyId = id,
+        surveyTitle = title ?: "",
+        surveyDescription = description ?: "å"
+    )
 }

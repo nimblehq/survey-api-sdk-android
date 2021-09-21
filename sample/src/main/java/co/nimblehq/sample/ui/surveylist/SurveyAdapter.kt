@@ -4,25 +4,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import co.nimblehq.survey.sdk.entity.SurveyEntity
+import co.nimblehq.survey.sdk.model.SurveyModel
 
 class SurveyAdapter : RecyclerView.Adapter<SurveyAdapter.SurveyViewHolder>() {
 
-    private val dataList = mutableListOf<SurveyEntity>()
+    private val dataList = mutableListOf<SurveyModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SurveyViewHolder {
         return SurveyViewHolder(TextView(parent.context))
     }
 
     override fun onBindViewHolder(holder: SurveyViewHolder, position: Int) {
-        holder.bind(dataList[position].title ?: "")
+        holder.bind(dataList[position].surveyTitle ?: "")
     }
 
     override fun getItemCount(): Int {
         return dataList.size
     }
 
-    fun updateData(list: List<SurveyEntity>) {
+    fun updateData(list: List<SurveyModel>) {
         val start = dataList.size
         dataList.addAll(list)
         notifyItemRangeChanged(start, dataList.size)
