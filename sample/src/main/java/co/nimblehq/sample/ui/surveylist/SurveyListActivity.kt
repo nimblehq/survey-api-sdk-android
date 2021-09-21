@@ -20,7 +20,7 @@ class SurveyListActivity : AppCompatActivity() {
         surveyListViewModel = ViewModelProvider(this, SurveyListModelFactory())
             .get(SurveyListViewModel::class.java)
 
-        surveyListViewModel.surveyListUi.observe(this@SurveyListActivity, {
+        surveyListViewModel.surveyListSurveyUi.observe(this@SurveyListActivity, {
             it.success?.let { result ->
                 (binding.surveyListView.adapter as SurveyAdapter).updateData(result.listSurvey)
             }
