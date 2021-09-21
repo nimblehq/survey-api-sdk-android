@@ -4,18 +4,16 @@ import com.squareup.moshi.Json
 
 open class BaseRequest {
     @Json(name = "client_id")
-    var clientID: String = clientIdInstance
+    var clientID: String = credentials.clientID
 
     @Json(name = "client_secret")
-    var clientSecret: String = clientSecretInstance
+    var clientSecret: String = credentials.clientSecret
 
     companion object {
-        private var clientIdInstance = ""
-        private var clientSecretInstance = ""
+        private var credentials  = Credentials()
 
-        fun updateAuthenticationInfo(clientId: String, clientSecret: String) {
-            clientIdInstance = clientId
-            clientSecretInstance = clientSecret
+        fun updateAuthenticationInfo(credentialsInfo : Credentials) {
+            credentials = credentialsInfo
         }
     }
 }

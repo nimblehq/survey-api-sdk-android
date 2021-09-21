@@ -2,6 +2,7 @@ package co.nimblehq.sample
 
 import android.app.Application
 import co.nimblehq.survey.sdk.SurveyApi
+import co.nimblehq.survey.sdk.request.Credentials
 
 class SampleApp : Application() {
 
@@ -11,8 +12,10 @@ class SampleApp : Application() {
             .withMode(BuildConfig.DEBUG)
             .withBaseUrl(BuildConfig.BASE_URL)
             .withCredentials(
-                clientID = BuildConfig.CLIENT_ID,
-                clientSecret = BuildConfig.CLIENT_SECRET
+                Credentials(
+                    clientID = BuildConfig.CLIENT_ID,
+                    clientSecret = BuildConfig.CLIENT_SECRET
+                )
             )
     }
 }

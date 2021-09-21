@@ -4,6 +4,7 @@ import co.nimblehq.survey.sdk.api.AppService
 import co.nimblehq.survey.sdk.entity.SurveyEntity
 import co.nimblehq.survey.sdk.network.NetworkBuilder
 import co.nimblehq.survey.sdk.request.BaseRequest
+import co.nimblehq.survey.sdk.request.Credentials
 import kotlinx.coroutines.*
 
 class SurveyApi private constructor() : NetworkBuilder() {
@@ -24,11 +25,11 @@ class SurveyApi private constructor() : NetworkBuilder() {
         return this
     }
 
-    fun withCredentials(clientID: String, clientSecret: String) {
-        BaseRequest.updateAuthenticationInfo(clientID, clientSecret)
+    fun withCredentials(credentials: Credentials) {
+        BaseRequest.updateAuthenticationInfo(credentials)
     }
 
-    fun setTokenApi(token: String): SurveyApi {
+    fun setTokenKey(token: String): SurveyApi {
         super.setToken(token)
         return this
     }
