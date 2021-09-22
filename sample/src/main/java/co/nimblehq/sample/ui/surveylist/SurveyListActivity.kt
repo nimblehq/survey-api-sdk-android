@@ -29,7 +29,6 @@ class SurveyListActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Error on getting Survey List!", Toast.LENGTH_LONG).show()
             }
-
         })
 
         binding.surveyListView.adapter = SurveyAdapter()

@@ -21,7 +21,6 @@ class LoginViewModel : ViewModel() {
     val authenService = SurveyApi.instance.buildService<AuthService>()
 
     fun login() {
-
         // Hardcoding the credential information because we dont have UI for this one
         val request = LoginRequest(grantType = "password", email = "dev@nimblehq.co", "12345678")
         viewModelScope.launch {
@@ -31,7 +30,6 @@ class LoginViewModel : ViewModel() {
                     SurveyApi.instance.setTokenKey(result.accessToken ?: "")
                     SurveyApi.instance.setTokenType(result.tokenType ?: "")
                     _loginResult.postValue(Result.Success("Hello"))
-
                 } catch (exception: Exception) {
                     exception.printStackTrace()
                     _loginResult.postValue(Result.Error(exception))

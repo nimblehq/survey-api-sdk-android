@@ -37,7 +37,6 @@ abstract class NetworkBuilder {
         return this
     }
 
-
     fun setToken(token: String): NetworkBuilder {
         this.token = token
         return this
@@ -65,8 +64,7 @@ abstract class NetworkBuilder {
                 if (debugMode) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
         }
 
-    private fun provideRetrofitBuilder(
-    ): Retrofit.Builder {
+    private fun provideRetrofitBuilder(): Retrofit.Builder {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(MoshiBuilderProvider.getJsonApiConverterFactory())

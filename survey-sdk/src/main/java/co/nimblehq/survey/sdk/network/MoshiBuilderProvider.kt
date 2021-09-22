@@ -12,6 +12,7 @@ import moe.banana.jsonapi2.ResourceAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 object MoshiBuilderProvider {
+
     private val listJsonApiClass = mutableListOf<Class<out Resource>>(
         SurveyEntity::class.java,
         QuestionEntity::class.java,

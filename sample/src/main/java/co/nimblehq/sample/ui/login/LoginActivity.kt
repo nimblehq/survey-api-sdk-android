@@ -29,11 +29,9 @@ class LoginActivity : AppCompatActivity() {
                 val intent = Intent(this, SurveyListActivity::class.java)
                 startActivity(intent)
                 finish()
-
             } else {
                 Toast.makeText(this, "Login FAIL!", Toast.LENGTH_LONG).show()
             }
-
         })
 
         binding.login.setOnClickListener {
@@ -41,4 +39,3 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 }
-
