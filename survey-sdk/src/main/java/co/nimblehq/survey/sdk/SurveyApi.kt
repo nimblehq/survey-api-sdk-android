@@ -3,10 +3,12 @@ package co.nimblehq.survey.sdk
 import co.nimblehq.survey.sdk.api.AppService
 import co.nimblehq.survey.sdk.entity.toSurveyModel
 import co.nimblehq.survey.sdk.model.SurveyModel
+import co.nimblehq.survey.sdk.network.MoshiBuilderProvider
 import co.nimblehq.survey.sdk.network.NetworkBuilder
 import co.nimblehq.survey.sdk.request.BaseRequest
 import co.nimblehq.survey.sdk.request.Credentials
 import kotlinx.coroutines.*
+import moe.banana.jsonapi2.Resource
 
 class SurveyApi private constructor() : NetworkBuilder() {
     private val service: AppService by lazy { buildService() }
@@ -50,6 +52,11 @@ class SurveyApi private constructor() : NetworkBuilder() {
         return this
     }
 
+    fun addJsonApiClasses(vararg classes: Class<out Resource>): SurveyApi {
+        MoshiBuilderProvider.addJsonApiClasses(*classes)
+        return this
+    }
+
     /**
      * Return the list of Surveys. The request is asynchronously done in the background.
      *
@@ -63,10 +70,10 @@ class SurveyApi private constructor() : NetworkBuilder() {
         GlobalScope.launch(Dispatchers.IO) {
             val result = try {
                 val result = service.getSurveyList(version, page, size)
-                Result.success(result.map { item -> item.toSurveyModel() })
+                Result.Success(result.map { item -> item.toSurveyModel() })
             } catch (exception: Exception) {
                 exception.printStackTrace()
-                Result.failure(exception)
+                Result.Error(exception)
             }
             withContext(Dispatchers.Main) {
                 onResponse(result)
@@ -86,11 +93,11 @@ class SurveyApi private constructor() : NetworkBuilder() {
         GlobalScope.launch(Dispatchers.IO) {
             val result = try {
                 val result = service.getSurveyDetail(surveyId, version)
-                Result.success(result.get().toSurveyModel())
+                Result.Success(result.get().toSurveyModel())
 
             } catch (exception: Exception) {
                 exception.printStackTrace()
-                Result.failure(exception)
+                Result.Error(exception)
             }
             withContext(Dispatchers.Main) {
                 onResponse(result)

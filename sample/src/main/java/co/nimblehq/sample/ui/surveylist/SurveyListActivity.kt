@@ -23,7 +23,7 @@ class SurveyListActivity : AppCompatActivity() {
         surveyListViewModel = ViewModelProvider(this, SurveyListModelFactory())
             .get(SurveyListViewModel::class.java)
 
-        surveyListViewModel.surveyListResult.observe(this@SurveyListActivity, {
+        surveyListViewModel.surveyListResult.observe(this, {
             if (it is Result.Success) {
                 (binding.surveyListView.adapter as SurveyAdapter).updateData(it.data)
             } else {
@@ -31,6 +31,7 @@ class SurveyListActivity : AppCompatActivity() {
             }
 
         })
+
         binding.surveyListView.adapter = SurveyAdapter()
         binding.surveyListView.addItemDecoration(
             DividerItemDecoration(
@@ -38,8 +39,6 @@ class SurveyListActivity : AppCompatActivity() {
                 DividerItemDecoration.VERTICAL
             )
         )
-        surveyListViewModel.getSurveyList()
     }
-
 }
 

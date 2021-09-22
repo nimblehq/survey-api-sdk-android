@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.nimblehq.sample.AuthService
+import co.nimblehq.survey.sdk.Result
 import co.nimblehq.survey.sdk.SurveyApi
 import co.nimblehq.survey.sdk.request.LoginRequest
 import kotlinx.coroutines.Dispatchers
@@ -27,12 +28,13 @@ class LoginViewModel : ViewModel() {
             withContext(Dispatchers.IO) {
                 try {
                     val result = authenService.loginEmail(request)
-                    SurveyApi.instance.setTokenKey(result.data.attributes.accessToken)
-                    _loginResult.postValue(Result.success("Hello"))
+                    SurveyApi.instance.setTokenKey(result.accessToken ?: "")
+                    SurveyApi.instance.setTokenType(result.tokenType ?: "")
+                    _loginResult.postValue(Result.Success("Hello"))
 
                 } catch (exception: Exception) {
                     exception.printStackTrace()
-                    _loginResult.postValue(Result.failure(exception))
+                    _loginResult.postValue(Result.Error(exception))
                 }
             }
         }

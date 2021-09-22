@@ -17,7 +17,7 @@ class SurveyAdapter : RecyclerView.Adapter<SurveyAdapter.SurveyViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: SurveyViewHolder, position: Int) {
-        holder.bind(dataList[position].surveyTitle ?: "")
+        holder.bind(dataList[position].surveyTitle)
     }
 
     override fun getItemCount(): Int {

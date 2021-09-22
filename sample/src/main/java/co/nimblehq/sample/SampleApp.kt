@@ -1,6 +1,7 @@
 package co.nimblehq.sample
 
 import android.app.Application
+import co.nimblehq.sample.entity.TokenEntity
 import co.nimblehq.survey.sdk.SurveyApi
 import co.nimblehq.survey.sdk.request.Credentials
 
@@ -11,6 +12,7 @@ class SampleApp : Application() {
         SurveyApi.instance
             .withMode(BuildConfig.DEBUG)
             .withBaseUrl(BuildConfig.BASE_URL)
+            .addJsonApiClasses(TokenEntity::class.java)
             .withCredentials(
                 Credentials(
                     clientID = BuildConfig.CLIENT_ID,
