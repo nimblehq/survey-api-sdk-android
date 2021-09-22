@@ -93,7 +93,7 @@ class SurveyApi private constructor() : NetworkBuilder() {
         GlobalScope.launch(Dispatchers.IO) {
             val result = try {
                 val result = service.getSurveyDetail(surveyId, version)
-                Result.Success(result.get().toSurveyModel())
+                Result.Success(result.toSurveyModel())
 
             } catch (exception: Exception) {
                 exception.printStackTrace()
