@@ -10,9 +10,9 @@ abstract class BaseRequest {
     var clientSecret: String = credentials.clientSecret
 
     companion object {
-        private var credentials  = Credentials()
+        private var credentials = Credentials()
 
-        fun updateAuthenticationInfo(credentialsInfo : Credentials) {
+        fun updateAuthenticationInfo(credentialsInfo: Credentials) {
             credentials = credentialsInfo
         }
     }

@@ -1,7 +1,8 @@
 package co.nimblehq.survey.sdk
 
 import co.nimblehq.survey.sdk.api.AppService
-import co.nimblehq.survey.sdk.entity.SurveyEntity
+import co.nimblehq.survey.sdk.entity.toSurveyModel
+import co.nimblehq.survey.sdk.model.SurveyModel
 import co.nimblehq.survey.sdk.network.NetworkBuilder
 import co.nimblehq.survey.sdk.request.BaseRequest
 import co.nimblehq.survey.sdk.request.Credentials
@@ -57,12 +58,12 @@ class SurveyApi private constructor() : NetworkBuilder() {
      * params: [onResponse] is a callback when the data is fetched.
      */
     @DelicateCoroutinesApi
-    fun getSurveyList(page: Int, size: Int, onResponse: (Result<List<SurveyEntity>>) -> Unit) {
+    fun getSurveyList(page: Int, size: Int, onResponse: (Result<List<SurveyModel>>) -> Unit) {
         //TODO: need to look back the way for data manipulation
         GlobalScope.launch(Dispatchers.IO) {
             val result = try {
                 val result = service.getSurveyList(version, page, size)
-                Result.success(result)
+                Result.success(result.map { item -> item.toSurveyModel() })
             } catch (exception: Exception) {
                 exception.printStackTrace()
                 Result.failure(exception)
@@ -80,12 +81,12 @@ class SurveyApi private constructor() : NetworkBuilder() {
      * params: [onResponse] is a callback when the data is fetched.
      */
     @DelicateCoroutinesApi
-    fun getSurveyDetail(surveyId: String, onResponse: (Result<SurveyEntity>) -> Unit) {
+    fun getSurveyDetail(surveyId: String, onResponse: (Result<SurveyModel>) -> Unit) {
         //TODO: need to look back the way for data manipulation
         GlobalScope.launch(Dispatchers.IO) {
             val result = try {
                 val result = service.getSurveyDetail(surveyId, version)
-                Result.success(result.get())
+                Result.success(result.get().toSurveyModel())
 
             } catch (exception: Exception) {
                 exception.printStackTrace()

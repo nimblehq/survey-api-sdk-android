@@ -1,11 +1,12 @@
 package co.nimblehq.sample.ui.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import co.nimblehq.sample.databinding.ActivityLoginBinding
+import co.nimblehq.sample.ui.surveylist.SurveyListActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -21,10 +22,13 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
-
-        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
+        loginViewModel.loginResult.observe(this, {
             if (it.isSuccess) {
                 Toast.makeText(this, "Login successful!", Toast.LENGTH_LONG).show()
+                val intent = Intent(this, SurveyListActivity::class.java)
+                startActivity(intent)
+                finish()
+
             } else {
                 Toast.makeText(this, "Login FAIL!", Toast.LENGTH_LONG).show()
             }

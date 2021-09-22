@@ -18,7 +18,7 @@ object MoshiBuilderProvider {
         .add(AnswerEntity::class.java)
         .build()
 
-    fun provideJsonApiMoshi(moshiBuilder : Moshi.Builder,factory: JsonAdapter.Factory): Moshi =
+    fun provideJsonApiMoshi(moshiBuilder: Moshi.Builder, factory: JsonAdapter.Factory): Moshi =
         moshiBuilder.add((factory)).build()
 
     fun getJsonApiConverterFactory(moshi: Moshi): JsonApiConverterFactory =
