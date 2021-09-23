@@ -19,5 +19,4 @@ interface AppService {
         @Path("id") id: String,
         @Path("version") version: String = "v1"
     ): SurveyEntity
-
 }

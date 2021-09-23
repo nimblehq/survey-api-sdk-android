@@ -9,5 +9,4 @@ interface AuthService {
 
     @POST("/api/v1/oauth/token")
     suspend fun loginEmail(@Body request: LoginRequest): TokenEntity
-
 }

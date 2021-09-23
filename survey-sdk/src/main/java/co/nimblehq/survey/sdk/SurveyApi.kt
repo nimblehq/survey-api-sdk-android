@@ -66,7 +66,7 @@ class SurveyApi private constructor() : NetworkBuilder() {
      */
     @DelicateCoroutinesApi
     fun getSurveyList(page: Int, size: Int, onResponse: (Result<List<SurveyModel>>) -> Unit) {
-        //TODO: need to look back the way for data manipulation
+        // TODO: need to look back the way for data manipulation
         GlobalScope.launch(Dispatchers.IO) {
             val result = try {
                 val result = service.getSurveyList(version, page, size)
@@ -89,12 +89,11 @@ class SurveyApi private constructor() : NetworkBuilder() {
      */
     @DelicateCoroutinesApi
     fun getSurveyDetail(surveyId: String, onResponse: (Result<SurveyModel>) -> Unit) {
-        //TODO: need to look back the way for data manipulation
+        // TODO: need to look back the way for data manipulation
         GlobalScope.launch(Dispatchers.IO) {
             val result = try {
                 val result = service.getSurveyDetail(surveyId, version)
                 Result.Success(result.toSurveyModel())
-
             } catch (exception: Exception) {
                 exception.printStackTrace()
                 Result.Error(exception)
