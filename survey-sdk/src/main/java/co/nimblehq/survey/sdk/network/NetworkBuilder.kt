@@ -1,17 +1,14 @@
 package co.nimblehq.survey.sdk.network
 
+import co.nimblehq.survey.sdk.interceptor.TokenInterceptor
 import co.nimblehq.survey.sdk.network.MoshiBuilderProvider.getConverterFactory
 import co.nimblehq.survey.sdk.network.MoshiBuilderProvider.getJsonApiConverterFactory
 import co.nimblehq.survey.sdk.network.MoshiBuilderProvider.provideJsonApiFactory
 import co.nimblehq.survey.sdk.network.MoshiBuilderProvider.provideMoshiJsonApi
 import com.squareup.moshi.Moshi
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 abstract class NetworkBuilder {
@@ -56,7 +53,7 @@ abstract class NetworkBuilder {
         val client: OkHttpClient = OkHttpClient.Builder()
             .connectTimeout(connectionTimeoutInSecond, TimeUnit.SECONDS)
             .readTimeout(readTimeoutInSecond, TimeUnit.SECONDS)
-            .addInterceptor(TokenInterceptor())
+            .addInterceptor(TokenInterceptor(token, tokenType))
             .addInterceptor(provideLoggingInterceptor()).build()
         return provideRetrofitBuilder()
             .client(client)
@@ -85,22 +82,5 @@ abstract class NetworkBuilder {
 
     inline fun <reified T> buildService(): T {
         return provideRetrofit().create(T::class.java)
-    }
-
-    inner class TokenInterceptor : Interceptor {
-        @Throws(IOException::class)
-        override fun intercept(chain: Interceptor.Chain): Response {
-            val originalRequest = chain.request()
-            val authenticationRequest = request(originalRequest)
-            return chain.proceed(authenticationRequest)
-        }
-
-        private fun request(originalRequest: Request): Request {
-            val builder = originalRequest.newBuilder()
-            if (token.isNotEmpty()) {
-                builder.addHeader("Authorization", "$tokenType $token")
-            }
-            return builder.build()
-        }
     }
 }
