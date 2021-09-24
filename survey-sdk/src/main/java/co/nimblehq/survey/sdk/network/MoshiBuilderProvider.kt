@@ -31,6 +31,7 @@ object MoshiBuilderProvider {
     fun getJsonApiConverterFactory(moshiJsonApi: Moshi): JsonApiConverterFactory =
         JsonApiConverterFactory.create(moshiJsonApi)
 
+    //TODO: need to make a decision if the Sdk really need to support outside JsonApi Resource
     fun addJsonApiClasses(vararg classes: Class<out Resource>) {
         listJsonApiClass.addAll(classes)
     }
