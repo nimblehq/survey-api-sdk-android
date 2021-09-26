@@ -11,11 +11,13 @@ class SurveyAdapter : RecyclerView.Adapter<SurveyAdapter.SurveyViewHolder>() {
     private val dataList = mutableListOf<SurveyModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SurveyViewHolder {
-        return SurveyViewHolder(TextView(parent.context))
+        val textView = TextView(parent.context)
+        textView.textSize = 24f
+        return SurveyViewHolder(textView)
     }
 
     override fun onBindViewHolder(holder: SurveyViewHolder, position: Int) {
-        holder.bind(dataList[position].surveyTitle ?: "")
+        holder.bind(dataList[position].surveyTitle)
     }
 
     override fun getItemCount(): Int {

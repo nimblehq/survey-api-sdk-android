@@ -1,10 +1,10 @@
 package co.nimblehq.survey.sdk.network
 
-import co.nimblehq.survey.sdk.api.AppService
-import co.nimblehq.survey.sdk.network.MoshiBuilderProvider.getConverterFactory
-import co.nimblehq.survey.sdk.network.MoshiBuilderProvider.getJsonApiConverterFactory
+import co.nimblehq.survey.sdk.interceptor.TokenInterceptor
+import co.nimblehq.survey.sdk.network.MoshiBuilderProvider.provideConverterFactory
+import co.nimblehq.survey.sdk.network.MoshiBuilderProvider.provideJsonApiConverterFactory
 import co.nimblehq.survey.sdk.network.MoshiBuilderProvider.provideJsonApiFactory
-import co.nimblehq.survey.sdk.network.MoshiBuilderProvider.provideJsonApiMoshi
+import co.nimblehq.survey.sdk.network.MoshiBuilderProvider.provideMoshiJsonApi
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,12 +12,12 @@ import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
 
 abstract class NetworkBuilder {
-
     private var debugMode = false
     private var baseUrl = ""
     private var connectionTimeoutInSecond = 30L
     private var readTimeoutInSecond = 30L
     private var token = ""
+    private var tokenType = ""
 
     fun setDebugMode(debugMode: Boolean): NetworkBuilder {
         this.debugMode = debugMode
@@ -44,10 +44,16 @@ abstract class NetworkBuilder {
         return this
     }
 
+    fun setTokenType(tokenType: String): NetworkBuilder {
+        this.tokenType = tokenType
+        return this
+    }
+
     fun provideRetrofit(): Retrofit {
         val client: OkHttpClient = OkHttpClient.Builder()
             .connectTimeout(connectionTimeoutInSecond, TimeUnit.SECONDS)
             .readTimeout(readTimeoutInSecond, TimeUnit.SECONDS)
+            .addInterceptor(TokenInterceptor(token, tokenType))
             .addInterceptor(provideLoggingInterceptor()).build()
         return provideRetrofitBuilder()
             .client(client)
@@ -64,22 +70,17 @@ abstract class NetworkBuilder {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(
-                getJsonApiConverterFactory(
-                    provideJsonApiMoshi(
-                        Moshi.Builder(),
-                        provideJsonApiFactory()
+                provideJsonApiConverterFactory(
+                    provideMoshiJsonApi(
+                        provideJsonApiFactory(),
+                        Moshi.Builder()
                     )
                 )
             )
-            .addConverterFactory(getConverterFactory(Moshi.Builder()))
-    }
-
-    protected fun buildAppService(): AppService {
-        return provideRetrofit().create(AppService::class.java)
+            .addConverterFactory(provideConverterFactory(Moshi.Builder()))
     }
 
     inline fun <reified T> buildService(): T {
         return provideRetrofit().create(T::class.java)
     }
-
 }

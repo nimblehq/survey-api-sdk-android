@@ -1,7 +1,6 @@
 package co.nimblehq.survey.sdk.api
 
 import co.nimblehq.survey.sdk.entity.SurveyEntity
-import moe.banana.jsonapi2.ObjectDocument
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -19,6 +18,5 @@ interface AppService {
     suspend fun getSurveyDetail(
         @Path("id") id: String,
         @Path("version") version: String = "v1"
-    ): ObjectDocument<SurveyEntity>
-
+    ): SurveyEntity
 }
