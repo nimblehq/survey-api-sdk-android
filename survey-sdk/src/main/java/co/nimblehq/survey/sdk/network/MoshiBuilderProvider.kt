@@ -12,11 +12,16 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object MoshiBuilderProvider {
 
-    private val listJsonApiClass = mutableListOf<Class<out Resource>>(
+    private val listJsonApiClass = mutableListOf(
         SurveyEntity::class.java,
         QuestionEntity::class.java,
         AnswerEntity::class.java
     )
+
+    // TODO: need to make a decision if the Sdk really need to support outside JsonApi Resource
+    fun addJsonApiClasses(vararg classes: Class<out Resource>) {
+        listJsonApiClass.addAll(classes)
+    }
 
     fun provideJsonApiFactory(): ResourceAdapterFactory = ResourceAdapterFactory.builder()
         .add(*listJsonApiClass.toTypedArray())
@@ -28,15 +33,10 @@ object MoshiBuilderProvider {
     ): Moshi = moshiBuilder
         .add((jsonApiFactory)).build()
 
-    fun getJsonApiConverterFactory(moshiJsonApi: Moshi): JsonApiConverterFactory =
+    fun provideJsonApiConverterFactory(moshiJsonApi: Moshi): JsonApiConverterFactory =
         JsonApiConverterFactory.create(moshiJsonApi)
 
-    // TODO: need to make a decision if the Sdk really need to support outside JsonApi Resource
-    fun addJsonApiClasses(vararg classes: Class<out Resource>) {
-        listJsonApiClass.addAll(classes)
-    }
-
-    fun getConverterFactory(moshiBuilder: Moshi.Builder): MoshiConverterFactory =
+    fun provideConverterFactory(moshiBuilder: Moshi.Builder): MoshiConverterFactory =
         MoshiConverterFactory.create(
             moshiBuilder.add(
                 KotlinJsonAdapterFactory()

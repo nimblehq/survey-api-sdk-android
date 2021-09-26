@@ -52,6 +52,7 @@ class SurveyApi private constructor() : NetworkBuilder() {
         return this
     }
 
+    // TODO: need to make a decision if the Sdk really need to support outside JsonApi Resource
     fun addJsonApiClasses(vararg classes: Class<out Resource>): SurveyApi {
         MoshiBuilderProvider.addJsonApiClasses(*classes)
         return this
