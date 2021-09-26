@@ -44,7 +44,7 @@ class SerializerTest {
 
         assertTrue(surveyList.isNotEmpty())
 
-        //Item test
+        // Item test
         val firstItem = surveyList.first()
 
         // Attributes test
@@ -72,7 +72,6 @@ class SerializerTest {
             assertTrue(pageSize == 2)
             assertTrue(records == 20)
         }
-
     }
 
     @Test
@@ -159,5 +158,4 @@ class SerializerTest {
             assertTrue(responseClass == "string")
         }
     }
-
 }

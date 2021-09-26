@@ -1,9 +1,11 @@
 package co.nimblehq.sample.ui.surveylist
 
+import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import co.nimblehq.sample.ui.surveydetail.SurveyDetailActivity
 import co.nimblehq.survey.sdk.model.SurveyModel
 
 class SurveyAdapter : RecyclerView.Adapter<SurveyAdapter.SurveyViewHolder>() {
@@ -17,7 +19,7 @@ class SurveyAdapter : RecyclerView.Adapter<SurveyAdapter.SurveyViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: SurveyViewHolder, position: Int) {
-        holder.bind(dataList[position].surveyTitle ?: "")
+        holder.bind(dataList[position])
     }
 
     override fun getItemCount(): Int {
@@ -31,8 +33,15 @@ class SurveyAdapter : RecyclerView.Adapter<SurveyAdapter.SurveyViewHolder>() {
     }
 
     class SurveyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(value: String) {
-            (itemView as TextView).text = value
+        fun bind(value: SurveyModel) {
+            (itemView as TextView).text = value.surveyTitle
+            itemView.setOnClickListener {
+                val intent = Intent(itemView.context, SurveyDetailActivity::class.java).apply {
+                    putExtra("id", value.surveyId)
+                    putExtra("title", value.surveyTitle)
+                }
+                itemView.context.startActivity(intent)
+            }
         }
     }
 }

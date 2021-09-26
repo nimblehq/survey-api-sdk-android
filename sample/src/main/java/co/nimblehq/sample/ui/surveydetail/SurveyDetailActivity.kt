@@ -23,10 +23,8 @@ class SurveyDetailActivity : AppCompatActivity() {
             .get(SurveyDetailViewModel::class.java)
 
         surveyListViewModel.surveyDetailResult.observe(this@SurveyDetailActivity, {
-            //TODO: Handle result
+            // TODO: Handle result
         })
         surveyListViewModel.getSurveyDetail()
     }
-
 }
-

@@ -18,12 +18,10 @@ class SurveyDetailViewModel : ViewModel() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    //TODO: integration step
+                    // TODO: integration step
                 } catch (exception: Exception) {
                 }
             }
         }
     }
-
 }
-

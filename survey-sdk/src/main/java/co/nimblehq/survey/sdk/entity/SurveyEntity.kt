@@ -45,7 +45,7 @@ data class SurveyEntity(
 fun SurveyEntity.toSurveyModel(): SurveyModel {
     return SurveyModel(
         surveyId = id,
-        surveyTitle = title ?: "",
-        surveyDescription = description ?: ""
+        surveyTitle = title.orEmpty(),
+        surveyDescription = description.orEmpty()
     )
 }
