@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import co.nimblehq.sample.ID_KEY
+import co.nimblehq.sample.TITLE_KEY
 import co.nimblehq.sample.databinding.ActivitySurveyDetailBinding
 import co.nimblehq.survey.sdk.Result
 
@@ -18,25 +20,22 @@ class SurveyDetailActivity : AppCompatActivity() {
         binding = ActivitySurveyDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        intent.getStringExtra("title")?.let {
+        intent.getStringExtra(TITLE_KEY)?.let {
             title = it
         }
         surveyListViewModel = ViewModelProvider(this, SurveyDetailModelFactory())
             .get(SurveyDetailViewModel::class.java)
 
-        surveyListViewModel.surveyDetailResult.observe(this@SurveyDetailActivity, {
+        surveyListViewModel.surveyDetailResult.observe(this, {
             if (it is Result.Success) {
-                binding.description.text = it.data.description ?: ""
+                binding.tvDescription.text = it.data.surveyDescription
             } else {
                 Toast.makeText(this, "Error on getting Survey Detail!", Toast.LENGTH_LONG).show()
             }
 
         })
-        intent.getStringExtra("id")?.let {
+        intent.getStringExtra(ID_KEY)?.let {
             surveyListViewModel.getSurveyDetail(it)
         }
-
     }
-
 }
-
