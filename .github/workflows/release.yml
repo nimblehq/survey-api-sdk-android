@@ -10,30 +10,22 @@ jobs:
   app_deploy:
     name: Deploy and upload to JitPack
     runs-on: ubuntu-latest
+
     steps:
-      - name: Set up JDK 1.8
-        uses: actions/setup-java@v1
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
         with:
-          java-version: 1.8
-
-      - name: Setup timezone
-        uses: zcong1993/setup-timezone@master
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          timezone: Asia/Bangkok
-
-      - uses: actions/checkout@v2.3.2
-
-      - name: Load Gradle cached
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/caches/modules-*
-            ~/.gradle/caches/jars-*
-            ~/.gradle/caches/build-cache-*
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
-      # Build Release
-      - name: Build Release
-        run: ./gradlew publishReleasePublicationToMavenLocal
+          tag_name: '0.1.0'
+          release_name: 'Release 0.1.0'
+          draft: false
+          prerelease: false
