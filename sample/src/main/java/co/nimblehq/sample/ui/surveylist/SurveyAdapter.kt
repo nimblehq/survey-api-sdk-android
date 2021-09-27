@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import co.nimblehq.sample.ID_KEY
+import co.nimblehq.sample.TITLE_KEY
 import co.nimblehq.sample.ui.surveydetail.SurveyDetailActivity
 import co.nimblehq.survey.sdk.model.SurveyModel
 
@@ -37,8 +39,8 @@ class SurveyAdapter : RecyclerView.Adapter<SurveyAdapter.SurveyViewHolder>() {
             (itemView as TextView).text = value.surveyTitle
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, SurveyDetailActivity::class.java).apply {
-                    putExtra("id", value.surveyId)
-                    putExtra("title", value.surveyTitle)
+                    putExtra(ID_KEY, value.surveyId)
+                    putExtra(TITLE_KEY, value.surveyTitle)
                 }
                 itemView.context.startActivity(intent)
             }
