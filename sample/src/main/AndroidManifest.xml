@@ -24,6 +24,9 @@
         <activity
             android:name=".ui.surveylist.SurveyListActivity"
             android:launchMode="singleTop" />
+        <activity
+            android:name=".ui.surveydetail.SurveyDetailActivity"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>
