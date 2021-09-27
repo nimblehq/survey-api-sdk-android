@@ -32,7 +32,6 @@ class SurveyDetailActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Error on getting Survey Detail!", Toast.LENGTH_LONG).show()
             }
-
         })
         intent.getStringExtra(ID_KEY)?.let {
             surveyListViewModel.getSurveyDetail(it)
