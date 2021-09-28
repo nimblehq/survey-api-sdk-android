@@ -1,55 +1,40 @@
 package co.nimblehq.sample.ui.login
 
-import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import co.nimblehq.sample.R
-import co.nimblehq.sample.data.LoginRepository
-import co.nimblehq.sample.data.Result
+import androidx.lifecycle.viewModelScope
+import co.nimblehq.sample.AuthService
+import co.nimblehq.survey.sdk.Result
+import co.nimblehq.survey.sdk.SurveyApi
+import co.nimblehq.survey.sdk.request.LoginRequest
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
+class LoginViewModel : ViewModel() {
 
-    private val _loginForm = MutableLiveData<LoginFormState>()
-    val loginFormState: LiveData<LoginFormState> = _loginForm
+    private val _loginResult = MutableLiveData<Result<String>>()
+    val loginResult: LiveData<Result<String>> = _loginResult
 
-    private val _loginResult = MutableLiveData<LoginResult>()
-    val loginResult: LiveData<LoginResult> = _loginResult
+    // As the SDK does not support Authentication service so far, then we will use custom service from the SDK
+    val authenService = SurveyApi.instance.buildService<AuthService>()
 
-    fun login(username: String, password: String) {
-        // can be launched in a separate asynchronous job
-        val result = loginRepository.login(username, password)
-
-        if (result is Result.Success) {
-            _loginResult.value =
-                LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
-        } else {
-            _loginResult.value = LoginResult(error = R.string.login_failed)
+    fun login() {
+        // Hardcoding the credential information because we dont have UI for this one
+        val request = LoginRequest(grantType = "password", email = "dev@nimblehq.co", "12345678")
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                try {
+                    val result = authenService.loginEmail(request)
+                    SurveyApi.instance.setTokenKey(result.accessToken.orEmpty())
+                    SurveyApi.instance.setTokenType(result.tokenType.orEmpty())
+                    _loginResult.postValue(Result.Success("Hello"))
+                } catch (exception: Exception) {
+                    exception.printStackTrace()
+                    _loginResult.postValue(Result.Error(exception))
+                }
+            }
         }
-    }
-
-    fun loginDataChanged(username: String, password: String) {
-        if (!isUserNameValid(username)) {
-            _loginForm.value = LoginFormState(usernameError = R.string.invalid_username)
-        } else if (!isPasswordValid(password)) {
-            _loginForm.value = LoginFormState(passwordError = R.string.invalid_password)
-        } else {
-            _loginForm.value = LoginFormState(isDataValid = true)
-        }
-    }
-
-    // A placeholder username validation check
-    private fun isUserNameValid(username: String): Boolean {
-        return if (username.contains('@')) {
-            Patterns.EMAIL_ADDRESS.matcher(username).matches()
-        } else {
-            username.isNotBlank()
-        }
-    }
-
-    // A placeholder password validation check
-    private fun isPasswordValid(password: String): Boolean {
-        return password.length > 5
     }
 }
-

@@ -5,7 +5,6 @@ plugins {
 
 android {
     compileSdk 30
-
     defaultConfig {
         applicationId "co.nimblehq.sample"
         minSdk 21
@@ -14,6 +13,10 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "CLIENT_ID", "\"6GbE8dhoz519l2N_F99StqoOs6Tcmm1rXgda4q__rIw\"")
+        buildConfigField("String", "CLIENT_SECRET", "\"_ayfIm7BeUAhx2W1OUqi20fwO3uNxfo1QstyKlFCgHw\"")
+        buildConfigField("String", "BASE_URL", "\"https://survey-api.nimblehq.co/\"")
     }
 
     buildTypes {
@@ -36,16 +39,16 @@ android {
 
 dependencies {
     implementation(
-        project(':survey-sdk')
+        project(':survey-sdk'),
+        "androidx.activity:activity-ktx:1.2.1",
+        "androidx.appcompat:appcompat:1.3.0",
+        "androidx.constraintlayout:constraintlayout:2.0.0-alpha3",
+        "androidx.core:core-ktx:1.3.0",
+        "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha02",
+        "com.google.android.material:material:1.4.0"
+
     )
-    implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.annotation:annotation:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    testImplementation "junit:junit:4.13.2"
+    androidTestImplementation "androidx.test.ext:junit:1.1.3"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
 }
