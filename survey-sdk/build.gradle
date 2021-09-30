@@ -4,6 +4,8 @@ plugins {
     id 'maven-publish'
 }
 
+apply from: "../ktlint.gradle"
+
 android {
     compileSdk 30
 

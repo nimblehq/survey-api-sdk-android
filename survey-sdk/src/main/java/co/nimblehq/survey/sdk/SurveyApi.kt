@@ -9,10 +9,14 @@ import co.nimblehq.survey.sdk.request.BaseRequest
 import co.nimblehq.survey.sdk.request.Credentials
 import kotlinx.coroutines.*
 import moe.banana.jsonapi2.Resource
+import kotlin.coroutines.CoroutineContext
 
-class SurveyApi private constructor() : NetworkBuilder() {
+class SurveyApi private constructor() : NetworkBuilder(), CoroutineScope {
     private val service: AppService by lazy { buildService() }
     private var version = "v1"
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + SupervisorJob()
 
     companion object {
         val instance: SurveyApi by lazy { SurveyApi() }
@@ -68,7 +72,7 @@ class SurveyApi private constructor() : NetworkBuilder() {
     @DelicateCoroutinesApi
     fun getSurveyList(page: Int, size: Int, onResponse: (Result<List<SurveyModel>>) -> Unit) {
         // TODO: need to look back the way for data manipulation
-        GlobalScope.launch(Dispatchers.IO) {
+        launch(Dispatchers.IO) {
             val result = try {
                 val result = service.getSurveyList(version, page, size)
                 Result.Success(result.map { item -> item.toSurveyModel() })
@@ -91,7 +95,7 @@ class SurveyApi private constructor() : NetworkBuilder() {
     @DelicateCoroutinesApi
     fun getSurveyDetail(surveyId: String, onResponse: (Result<SurveyModel>) -> Unit) {
         // TODO: need to look back the way for data manipulation
-        GlobalScope.launch(Dispatchers.IO) {
+        launch(Dispatchers.IO) {
             val result = try {
                 val result = service.getSurveyDetail(surveyId, version)
                 Result.Success(result.toSurveyModel())
