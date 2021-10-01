@@ -14,7 +14,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - uses: madhead/read-java-properties@latest
+      - name: Read version.properties
+        uses: madhead/read-java-properties@latest
         id: version
         with:
           file: version.properties
