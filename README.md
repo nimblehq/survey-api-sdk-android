@@ -48,7 +48,7 @@ Step 2. Add the dependency
 
     ```
     with(SurveyApi.instance) {
-          setTokenKey(login.tokenKey)
+          setAccessToken(login.accessToken)
           setTokenType(login.tokenType)
     }
     ```

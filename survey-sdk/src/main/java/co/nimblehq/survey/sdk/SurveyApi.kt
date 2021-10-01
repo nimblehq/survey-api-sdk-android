@@ -32,7 +32,7 @@ class SurveyApi private constructor() : NetworkBuilder() {
         BaseRequest.updateAuthenticationInfo(credentials)
     }
 
-    fun setTokenKey(token: String): SurveyApi {
+    fun setAccessToken(token: String): SurveyApi {
         super.setToken(token)
         return this
     }
