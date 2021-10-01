@@ -4,6 +4,10 @@ plugins {
     id 'maven-publish'
 }
 
+def versionPropertiesFile = rootProject.file("./version.properties")
+def versionProperties = new Properties()
+versionProperties.load(new FileInputStream(versionPropertiesFile))
+
 android {
     compileSdk 30
 
@@ -11,7 +15,7 @@ android {
         minSdk 21
         targetSdk 30
         versionCode 1
-        versionName "1.0"
+        versionName versionProperties['versionName']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -66,7 +70,7 @@ afterEvaluate {
                 // You can then customize attributes of the publication as shown below.
                 groupId = 'co.nimblehq'
                 artifactId = 'survey.sdk'
-                version = '0.2.0'
+                version = versionProperties['versionName']
             }
         }
     }
