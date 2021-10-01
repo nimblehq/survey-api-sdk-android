@@ -70,7 +70,7 @@ afterEvaluate {
                 // You can then customize attributes of the publication as shown below.
                 groupId = 'co.nimblehq'
                 artifactId = 'survey.sdk'
-                version = android.defaultConfig.versionName
+                version = versionProperties['versionName']
             }
         }
     }
