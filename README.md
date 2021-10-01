@@ -44,7 +44,7 @@ Step 2. Add the dependency
                 )        
      ```
 
-- Update token to SDK after having it (by Athentication step, for example)
+- Update token to SDK after having it (by Authentication step, for example)
 
     ```
     with(SurveyApi.instance) {
@@ -53,43 +53,23 @@ Step 2. Add the dependency
     }
     ```
 
-- Call request for getting SurveyList / SurveyDetail (The SDK already perform on background, it will
-  return the data callback on UI thread)
+- To get a list of surveys, use `getSurveyList` with the corresponding pagination parameters
 
     ```
     SurveyApi.instance.getSurveyList(page = 1, size = 10, onResponse = {
-                // Handle it as the result
+                // Handle it as the `Result.Success` or `Result.Error`
                 
     })     
     ```
 
+- To get a survey detail, use `getSurveyDetail` with the corresponding `survey id`
+
     ```
     SurveyApi.instance.getSurveyDetail(surveyId = id, onResponse = {
-                // Handle it as the result
+                // Handle it as the `Result.Success` or `Result.Error`
                 
     })      
     ```
-
-- If you want to use your own API, just call:
-
-   ```
-   val authService = SurveyApi.instance.buildService<AuthService>()
-   ```
-
-- Or you need to use your own `json-api` Entity on API, add entity classes at the `Setup` step :
-
-   ```
-    SurveyApi.instance
-     .addJsonApiClasses(
-        TokenEntity::class.java, 
-        ExampleEntity::class.java,
-        etc.)
-   ```
-
-## Note
-
-- The `Result` from callback should be `Success` or `Error`
-- In case of `Error`, there will be an Throwable inside
 
 ## License
 
